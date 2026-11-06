@@ -1,0 +1,76 @@
+# Two-process deployment (build plan §2.8, NFR-05/07, solution_journey Defect 10).
+#
+#   ingest     the only process that touches vehicle interfaces and the only one that can write the store
+#   assistant  question answering + UI: read-only store, no Linux capabilities, only on an `internal`
+#              network (no route out, no external DNS), in-process egress guard as a second layer
+#   gateway    byte forwarder (security/tcp_proxy.py), the only container on both networks: publishes
+#              the UI on 127.0.0.1 and nothing else. (A no-masquerade bridge was tried first and did NOT
+#              block egress on Docker Desktop - see docs/p6_results.md.)
+#   slm        optional (profile "slm"): llama-server for the Tier 1 planner / ECD choices, models read-only
+#
+# Linux target:  docker compose -f deploy/compose.yaml up --build
+# With the SLM:  docker compose -f deploy/compose.yaml --profile slm up --build
+# Run from the drivetrace/ directory. Negative checks: deploy/check_isolation.sh
+
+name: drivetrace
+
+x-hardening: &hardening
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  read_only: true
+  tmpfs: ["/tmp:size=256m"]
+  restart: unless-stopped
+
+services:
+  ingest:
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    image: drivetrace:local
+    <<: *hardening
+    command: ["python", "-m", "memory.build"]   # demo: (re)build memory layers once; a live CAN reader replaces this on a vehicle
+    restart: "no"
+    network_mode: none
+    volumes:
+      - ../data:/app/data                       # read-write: the ingest process owns the store
+    # On a real vehicle, CAN access is given to this container ONLY, e.g. SocketCAN via a dedicated
+    # network namespace or `devices: ["/dev/can0"]` for character-device CAN adapters. Never to the assistant.
+
+  assistant:
+    image: drivetrace:local
+    <<: *hardening
+    depends_on:
+      ingest: {condition: service_completed_successfully}
+    command: ["python", "-m", "uvicorn", "ui.app:app", "--host", "0.0.0.0", "--port", "8765"]
+    environment:
+      DRIVETRACE_DUCKDB_TMP: /tmp/duckdb        # the store is read-only; DuckDB spills to tmpfs
+    volumes:
+      - ../data:/app/data:ro
+    networks: [internal_only]
+    mem_limit: 1g
+    cpus: 2
+
+  gateway:
+    image: drivetrace:local
+    <<: *hardening
+    depends_on: [assistant]
+    command: ["python", "-m", "security.tcp_proxy", "--listen", "0.0.0.0:8765", "--target", "assistant:8765"]
+    networks: [edge, internal_only]
+    ports: ["127.0.0.1:8765:8765"]              # reachable from this device only
+    mem_limit: 64m
+    cpus: 0.5
+
+  slm:
+    profiles: [slm]
+    image: ghcr.io/ggml-org/llama.cpp:server    # pin by digest on the target before use
+    <<: *hardening
+    command: ["-m", "/models/SmolLM2-360M-Instruct-Q4_K_M.gguf", "-t", "2", "-c", "2048", "-np", "1",
+              "--host", "0.0.0.0", "--port", "8089"]
+    volumes:
+      - ../models:/models:ro
+    networks: [internal_only]
+    mem_limit: 700m
+    cpus: 2
+
+networks:
+  internal_only:
+    internal: true    # Docker gives this network no external connectivity at all
+  edge: {}            # used only by the gateway, to publish the UI port

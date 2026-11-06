@@ -1,0 +1,1818 @@
+{
+  "summary": {
+    "train": {
+      "exact": 21,
+      "top1": 21,
+      "top3": 21,
+      "abstained": 0,
+      "confidently_wrong": 0,
+      "n": 21,
+      "S4_S5_no_fault": "6/6"
+    },
+    "dev": {
+      "exact": 7,
+      "top1": 7,
+      "top3": 7,
+      "abstained": 0,
+      "confidently_wrong": 0,
+      "n": 7,
+      "S4_S5_no_fault": "2/2"
+    },
+    "test": {
+      "exact": 17,
+      "top1": 17,
+      "top3": 17,
+      "abstained": 0,
+      "confidently_wrong": 0,
+      "n": 17,
+      "S4_S5_no_fault": "4/4"
+    },
+    "history": {
+      "exact": 8,
+      "top1": 8,
+      "top3": 8,
+      "abstained": 0,
+      "confidently_wrong": 0,
+      "n": 8,
+      "S4_S5_no_fault": "2/2"
+    },
+    "blind": {
+      "exact": 16,
+      "top1": 16,
+      "top3": 16,
+      "abstained": 0,
+      "confidently_wrong": 0,
+      "n": 16,
+      "S4_S5_no_fault": "4/4"
+    }
+  },
+  "cases": [
+    {
+      "source": "ep_S0_00",
+      "split": "train",
+      "scenario": "S0",
+      "tag": "S0_trigger",
+      "anchor": "2026-06-03T13:43:50+00:00",
+      "expected": [
+        "none"
+      ],
+      "warning": false,
+      "predicted": [
+        "none"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S0_01",
+      "split": "train",
+      "scenario": "S0",
+      "tag": "S0_trigger",
+      "anchor": "2026-06-07T13:42:35+00:00",
+      "expected": [
+        "none"
+      ],
+      "warning": false,
+      "predicted": [
+        "none"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S0_02",
+      "split": "train",
+      "scenario": "S0",
+      "tag": "S0_trigger",
+      "anchor": "2026-06-11T13:47:25+00:00",
+      "expected": [
+        "none"
+      ],
+      "warning": false,
+      "predicted": [
+        "none"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S0_03",
+      "split": "dev",
+      "scenario": "S0",
+      "tag": "S0_trigger",
+      "anchor": "2026-06-15T13:07:10+00:00",
+      "expected": [
+        "none"
+      ],
+      "warning": false,
+      "predicted": [
+        "none"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S0_04",
+      "split": "test",
+      "scenario": "S0",
+      "tag": "S0_trigger",
+      "anchor": "2026-06-19T13:10:15+00:00",
+      "expected": [
+        "none"
+      ],
+      "warning": false,
+      "predicted": [
+        "none"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S0_05",
+      "split": "test",
+      "scenario": "S0",
+      "tag": "S0_trigger",
+      "anchor": "2026-06-23T13:51:15+00:00",
+      "expected": [
+        "none"
+      ],
+      "warning": false,
+      "predicted": [
+        "none"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S0_06",
+      "split": "blind",
+      "scenario": "S0",
+      "tag": "S0_trigger",
+      "anchor": "2027-07-08T13:38:10+00:00",
+      "expected": [
+        "none"
+      ],
+      "warning": false,
+      "predicted": [
+        "none"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S0_07",
+      "split": "blind",
+      "scenario": "S0",
+      "tag": "S0_trigger",
+      "anchor": "2027-07-12T13:24:25+00:00",
+      "expected": [
+        "none"
+      ],
+      "warning": false,
+      "predicted": [
+        "none"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S1_00",
+      "split": "train",
+      "scenario": "S1",
+      "tag": "S1_trigger",
+      "anchor": "2026-06-27T08:31:57+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S1_01",
+      "split": "train",
+      "scenario": "S1",
+      "tag": "S1_trigger",
+      "anchor": "2026-07-01T08:30:09+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S1_02",
+      "split": "train",
+      "scenario": "S1",
+      "tag": "S1_trigger",
+      "anchor": "2026-07-05T08:28:18+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S1_03",
+      "split": "dev",
+      "scenario": "S1",
+      "tag": "S1_trigger",
+      "anchor": "2026-07-09T08:28:02+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S1_04",
+      "split": "test",
+      "scenario": "S1",
+      "tag": "S1_trigger",
+      "anchor": "2026-07-13T08:26:43+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S1_05",
+      "split": "test",
+      "scenario": "S1",
+      "tag": "S1_trigger",
+      "anchor": "2026-07-17T08:30:55+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S1_06",
+      "split": "blind",
+      "scenario": "S1",
+      "tag": "S1_trigger",
+      "anchor": "2027-07-16T08:30:17+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S1_07",
+      "split": "blind",
+      "scenario": "S1",
+      "tag": "S1_trigger",
+      "anchor": "2027-07-20T08:30:42+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S2_00",
+      "split": "train",
+      "scenario": "S2",
+      "tag": "S2_trigger",
+      "anchor": "2026-07-21T09:35:17+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S2_01",
+      "split": "train",
+      "scenario": "S2",
+      "tag": "S2_trigger",
+      "anchor": "2026-07-25T09:45:49+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S2_02",
+      "split": "train",
+      "scenario": "S2",
+      "tag": "S2_trigger",
+      "anchor": "2026-07-29T09:35:23+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S2_03",
+      "split": "dev",
+      "scenario": "S2",
+      "tag": "S2_trigger",
+      "anchor": "2026-08-02T09:40:13+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S2_04",
+      "split": "test",
+      "scenario": "S2",
+      "tag": "S2_trigger",
+      "anchor": "2026-08-06T09:41:22+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S2_05",
+      "split": "test",
+      "scenario": "S2",
+      "tag": "S2_trigger",
+      "anchor": "2026-08-10T09:37:46+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S2_06",
+      "split": "blind",
+      "scenario": "S2",
+      "tag": "S2_trigger",
+      "anchor": "2027-07-24T09:36:30+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S2_07",
+      "split": "blind",
+      "scenario": "S2",
+      "tag": "S2_trigger",
+      "anchor": "2027-07-28T09:41:04+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S3_00",
+      "split": "train",
+      "scenario": "S3",
+      "tag": "S3_trigger",
+      "anchor": "2026-08-14T08:03:14+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S3_01",
+      "split": "train",
+      "scenario": "S3",
+      "tag": "S3_trigger",
+      "anchor": "2026-08-18T08:04:14+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S3_02",
+      "split": "train",
+      "scenario": "S3",
+      "tag": "S3_trigger",
+      "anchor": "2026-08-22T08:21:25+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S3_03",
+      "split": "dev",
+      "scenario": "S3",
+      "tag": "S3_trigger",
+      "anchor": "2026-08-26T04:02:09+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S3_04",
+      "split": "test",
+      "scenario": "S3",
+      "tag": "S3_trigger",
+      "anchor": "2026-08-30T08:38:02+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S3_05",
+      "split": "test",
+      "scenario": "S3",
+      "tag": "S3_trigger",
+      "anchor": "2026-09-03T09:11:55+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S3_06",
+      "split": "blind",
+      "scenario": "S3",
+      "tag": "S3_trigger",
+      "anchor": "2027-08-01T09:29:18+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S3_07",
+      "split": "blind",
+      "scenario": "S3",
+      "tag": "S3_trigger",
+      "anchor": "2027-08-05T04:04:47+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S4_00",
+      "split": "train",
+      "scenario": "S4",
+      "tag": "S4_trigger",
+      "anchor": "2026-09-07T05:26:50+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S4_01",
+      "split": "train",
+      "scenario": "S4",
+      "tag": "S4_trigger",
+      "anchor": "2026-09-11T05:24:05+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S4_02",
+      "split": "train",
+      "scenario": "S4",
+      "tag": "S4_trigger",
+      "anchor": "2026-09-15T05:24:25+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S4_03",
+      "split": "dev",
+      "scenario": "S4",
+      "tag": "S4_trigger",
+      "anchor": "2026-09-19T05:25:55+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S4_04",
+      "split": "test",
+      "scenario": "S4",
+      "tag": "S4_trigger",
+      "anchor": "2026-09-23T05:28:25+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S4_05",
+      "split": "test",
+      "scenario": "S4",
+      "tag": "S4_trigger",
+      "anchor": "2026-09-27T05:27:25+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S4_06",
+      "split": "blind",
+      "scenario": "S4",
+      "tag": "S4_trigger",
+      "anchor": "2027-08-09T05:27:05+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S4_07",
+      "split": "blind",
+      "scenario": "S4",
+      "tag": "S4_trigger",
+      "anchor": "2027-08-13T05:28:55+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S5_00",
+      "split": "train",
+      "scenario": "S5",
+      "tag": "S5_trigger",
+      "anchor": "2026-10-01T13:39:45+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S5_01",
+      "split": "train",
+      "scenario": "S5",
+      "tag": "S5_trigger",
+      "anchor": "2026-10-05T13:41:05+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S5_02",
+      "split": "train",
+      "scenario": "S5",
+      "tag": "S5_trigger",
+      "anchor": "2026-10-09T09:38:54+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S5_03",
+      "split": "dev",
+      "scenario": "S5",
+      "tag": "S5_trigger",
+      "anchor": "2026-10-13T13:34:50+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S5_04",
+      "split": "test",
+      "scenario": "S5",
+      "tag": "S5_trigger",
+      "anchor": "2026-10-17T13:39:55+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S5_05",
+      "split": "test",
+      "scenario": "S5",
+      "tag": "S5_trigger",
+      "anchor": "2026-10-21T09:40:55+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S5_06",
+      "split": "blind",
+      "scenario": "S5",
+      "tag": "S5_trigger",
+      "anchor": "2027-08-17T09:41:28+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S5_07",
+      "split": "blind",
+      "scenario": "S5",
+      "tag": "S5_trigger",
+      "anchor": "2027-08-21T09:50:02+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "ep_S6_00",
+      "split": "train",
+      "scenario": "S6",
+      "tag": "S6_trigger",
+      "anchor": "2026-10-25T09:30:19+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S6_01",
+      "split": "train",
+      "scenario": "S6",
+      "tag": "S6_trigger",
+      "anchor": "2026-10-29T09:32:27+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S6_02",
+      "split": "train",
+      "scenario": "S6",
+      "tag": "S6_trigger",
+      "anchor": "2026-11-02T09:26:57+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S6_03",
+      "split": "dev",
+      "scenario": "S6",
+      "tag": "S6_trigger",
+      "anchor": "2026-11-06T09:29:58+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S6_04",
+      "split": "test",
+      "scenario": "S6",
+      "tag": "S6_trigger",
+      "anchor": "2026-11-10T09:26:09+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S6_05",
+      "split": "test",
+      "scenario": "S6",
+      "tag": "S6_trigger",
+      "anchor": "2026-11-14T09:30:36+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S6_06",
+      "split": "blind",
+      "scenario": "S6",
+      "tag": "S6_trigger",
+      "anchor": "2027-08-25T08:32:45+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S6_07",
+      "split": "blind",
+      "scenario": "S6",
+      "tag": "S6_trigger",
+      "anchor": "2027-08-29T08:30:32+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "ep_S7_00",
+      "split": "test",
+      "scenario": "S7",
+      "tag": "S7_trigger",
+      "anchor": "2026-11-18T10:43:34+00:00",
+      "expected": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S7_01",
+      "split": "test",
+      "scenario": "S7",
+      "tag": "S7_trigger",
+      "anchor": "2026-11-22T10:35:35+00:00",
+      "expected": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S7_02",
+      "split": "test",
+      "scenario": "S7",
+      "tag": "S7_trigger",
+      "anchor": "2026-11-26T10:36:04+00:00",
+      "expected": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S7_06",
+      "split": "blind",
+      "scenario": "S7",
+      "tag": "S7_trigger",
+      "anchor": "2027-09-02T09:48:14+00:00",
+      "expected": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "ep_S7_07",
+      "split": "blind",
+      "scenario": "S7",
+      "tag": "S7_trigger",
+      "anchor": "2027-09-06T09:49:52+00:00",
+      "expected": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "temperature_sensor_fault"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED",
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "hist6w_s42",
+      "split": "history",
+      "scenario": "S1",
+      "tag": "S1_heatwave_towing_ultrafast",
+      "anchor": "2026-09-25T08:28:15+00:00",
+      "expected": [
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "hist6w_s42",
+      "split": "history",
+      "scenario": "S4",
+      "tag": "S4_pump_off_cold_morning",
+      "anchor": "2026-09-29T05:48:05+00:00",
+      "expected": [
+        "pump_not_commanded"
+      ],
+      "warning": false,
+      "predicted": [
+        "pump_not_commanded"
+      ],
+      "level": "OBSERVED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "pump_not_commanded": "OBSERVED"
+      }
+    },
+    {
+      "source": "hist6w_s42",
+      "split": "history",
+      "scenario": "S3",
+      "tag": "S3_avg_temp_sensor_bias",
+      "anchor": "2026-10-05T15:15:57+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "hist6w_s42",
+      "split": "history",
+      "scenario": "S3",
+      "tag": "S3_avg_temp_sensor_bias",
+      "anchor": "2026-10-06T09:33:21+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "hist6w_s42",
+      "split": "history",
+      "scenario": "S3",
+      "tag": "S3_avg_temp_sensor_bias",
+      "anchor": "2026-10-07T15:11:31+00:00",
+      "expected": [
+        "temperature_sensor_fault"
+      ],
+      "warning": true,
+      "predicted": [
+        "temperature_sensor_fault"
+      ],
+      "level": "CONSISTENT_WITH",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "temperature_sensor_fault": "CONSISTENT_WITH"
+      }
+    },
+    {
+      "source": "hist6w_s42",
+      "split": "history",
+      "scenario": "S5",
+      "tag": "S5_pump_signal_stale_then_missing",
+      "anchor": "2026-10-10T09:15:29+00:00",
+      "expected": [
+        "stale_or_missing_signal"
+      ],
+      "warning": false,
+      "predicted": [
+        "stale_or_missing_signal"
+      ],
+      "level": "OBSERVED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": true,
+      "levels": {
+        "stale_or_missing_signal": "OBSERVED"
+      }
+    },
+    {
+      "source": "hist6w_s42",
+      "split": "history",
+      "scenario": "S2",
+      "tag": "S2_cooling_degradation",
+      "anchor": "2026-10-19T10:57:27+00:00",
+      "expected": [
+        "cooling_degradation"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "SUFFICIENT",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    },
+    {
+      "source": "hist6w_s42",
+      "split": "history",
+      "scenario": "S6",
+      "tag": "S6_towing_ultrafast_with_degraded_cooling",
+      "anchor": "2026-10-24T09:15:21+00:00",
+      "expected": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "warning": true,
+      "predicted": [
+        "cooling_degradation",
+        "elevated_electrical_load"
+      ],
+      "level": "ATTRIBUTED",
+      "gate": "AMBIGUOUS",
+      "exact": true,
+      "top1": true,
+      "top3": true,
+      "abstained": false,
+      "confidently_wrong": false,
+      "no_fault_claimed": false,
+      "levels": {
+        "elevated_electrical_load": "ATTRIBUTED",
+        "cooling_degradation": "ATTRIBUTED"
+      }
+    }
+  ]
+}

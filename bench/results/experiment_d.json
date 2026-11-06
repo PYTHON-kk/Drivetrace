@@ -1,0 +1,313 @@
+{
+  "header": {
+    "generated_utc": "2026-10-29T17:57:23+00:00",
+    "device": {
+      "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+      "machine": "AMD64",
+      "os": "Windows-11-10.0.26200-SP0",
+      "logical_cpus": 16,
+      "ram_gb": 16.5,
+      "note": "x86-64 development laptop used as a PROXY, not the 2-core ARM target"
+    },
+    "python": "3.14.6",
+    "duckdb": "2.0.0",
+    "llama_cpp": {
+      "build": "b11606 win-cpu-x64",
+      "version": [
+        "version: 0.6.0-dev (build 11606, commit 1b70350c9)",
+        "built with Clang 20.1.8 for Windows x86_64"
+      ]
+    },
+    "models": {
+      "qwen2.5-0.5b-instruct-q4_k_m.gguf": "74a4da8c9fdbcd15",
+      "SmolLM2-360M-Instruct-Q4_K_M.gguf": "16c7f1667fea34ba"
+    },
+    "threads": 2,
+    "duckdb_limits": "2 threads, 512 MB (config/drivetrace.yaml)",
+    "vss_release": "6.1 (to be pinned; paths not yet verified)",
+    "seeds": {
+      "history": 42,
+      "episodes": "10000 + 97*seed + index (sim/generate.py)",
+      "splits": {
+        "train": [
+          "ep_S0_00",
+          "ep_S0_01",
+          "ep_S0_02",
+          "ep_S1_00",
+          "ep_S1_01",
+          "ep_S1_02",
+          "ep_S2_00",
+          "ep_S2_01",
+          "ep_S2_02",
+          "ep_S3_00",
+          "ep_S3_01",
+          "ep_S3_02",
+          "ep_S4_00",
+          "ep_S4_01",
+          "ep_S4_02",
+          "ep_S5_00",
+          "ep_S5_01",
+          "ep_S5_02",
+          "ep_S6_00",
+          "ep_S6_01",
+          "ep_S6_02"
+        ],
+        "dev": [
+          "ep_S0_03",
+          "ep_S1_03",
+          "ep_S2_03",
+          "ep_S3_03",
+          "ep_S4_03",
+          "ep_S5_03",
+          "ep_S6_03"
+        ],
+        "test": [
+          "ep_S0_04",
+          "ep_S0_05",
+          "ep_S1_04",
+          "ep_S1_05",
+          "ep_S2_04",
+          "ep_S2_05",
+          "ep_S3_04",
+          "ep_S3_05",
+          "ep_S4_04",
+          "ep_S4_05",
+          "ep_S5_04",
+          "ep_S5_05",
+          "ep_S6_04",
+          "ep_S6_05",
+          "ep_S7_00",
+          "ep_S7_01",
+          "ep_S7_02"
+        ],
+        "blind": [
+          "ep_S0_06",
+          "ep_S0_07",
+          "ep_S1_06",
+          "ep_S1_07",
+          "ep_S2_06",
+          "ep_S2_07",
+          "ep_S3_06",
+          "ep_S3_07",
+          "ep_S4_06",
+          "ep_S4_07",
+          "ep_S5_06",
+          "ep_S5_07",
+          "ep_S6_06",
+          "ep_S6_07",
+          "ep_S7_06",
+          "ep_S7_07"
+        ]
+      }
+    }
+  },
+  "storage": {
+    "hist6w_s42": {
+      "days_with_data": 44,
+      "raw_mb": 26.14,
+      "derived_mb": 1.23,
+      "mb_per_day": 0.622,
+      "six_weeks_mb": 26.1
+    },
+    "ved_10": {
+      "days_with_data": 149,
+      "raw_mb": 6.02,
+      "derived_mb": 0.84,
+      "mb_per_day": 0.046,
+      "six_weeks_mb": 1.9
+    },
+    "ved_276": {
+      "days_with_data": 137,
+      "raw_mb": 3.08,
+      "derived_mb": 0.76,
+      "mb_per_day": 0.028,
+      "six_weeks_mb": 1.2
+    },
+    "ved_340": {
+      "days_with_data": 183,
+      "raw_mb": 6.21,
+      "derived_mb": 1.01,
+      "mb_per_day": 0.039,
+      "six_weeks_mb": 1.7
+    },
+    "ved_351": {
+      "days_with_data": 171,
+      "raw_mb": 4.06,
+      "derived_mb": 0.93,
+      "mb_per_day": 0.029,
+      "six_weeks_mb": 1.2
+    },
+    "ved_371": {
+      "days_with_data": 225,
+      "raw_mb": 13.22,
+      "derived_mb": 1.37,
+      "mb_per_day": 0.065,
+      "six_weeks_mb": 2.7
+    },
+    "ved_388": {
+      "days_with_data": 221,
+      "raw_mb": 12.66,
+      "derived_mb": 1.34,
+      "mb_per_day": 0.063,
+      "six_weeks_mb": 2.7
+    },
+    "ved_450": {
+      "days_with_data": 221,
+      "raw_mb": 11.41,
+      "derived_mb": 1.24,
+      "mb_per_day": 0.057,
+      "six_weeks_mb": 2.4
+    },
+    "ved_455": {
+      "days_with_data": 188,
+      "raw_mb": 10.35,
+      "derived_mb": 1.09,
+      "mb_per_day": 0.061,
+      "six_weeks_mb": 2.6
+    },
+    "ved_458": {
+      "days_with_data": 201,
+      "raw_mb": 7.28,
+      "derived_mb": 1.12,
+      "mb_per_day": 0.042,
+      "six_weeks_mb": 1.8
+    },
+    "ved_462": {
+      "days_with_data": 177,
+      "raw_mb": 5.53,
+      "derived_mb": 0.95,
+      "mb_per_day": 0.037,
+      "six_weeks_mb": 1.5
+    },
+    "ved_468": {
+      "days_with_data": 140,
+      "raw_mb": 4.34,
+      "derived_mb": 0.78,
+      "mb_per_day": 0.037,
+      "six_weeks_mb": 1.5
+    },
+    "ved_531": {
+      "days_with_data": 285,
+      "raw_mb": 10.72,
+      "derived_mb": 1.58,
+      "mb_per_day": 0.043,
+      "six_weeks_mb": 1.8
+    },
+    "ved_541": {
+      "days_with_data": 7,
+      "raw_mb": 0.21,
+      "derived_mb": 0.04,
+      "mb_per_day": 0.036,
+      "six_weeks_mb": 1.5
+    },
+    "ved_560": {
+      "days_with_data": 235,
+      "raw_mb": 26.38,
+      "derived_mb": 1.46,
+      "mb_per_day": 0.118,
+      "six_weeks_mb": 5.0
+    },
+    "ved_565": {
+      "days_with_data": 166,
+      "raw_mb": 5.68,
+      "derived_mb": 0.92,
+      "mb_per_day": 0.04,
+      "six_weeks_mb": 1.7
+    },
+    "ved_575": {
+      "days_with_data": 213,
+      "raw_mb": 11.15,
+      "derived_mb": 1.2,
+      "mb_per_day": 0.058,
+      "six_weeks_mb": 2.4
+    },
+    "zenodo_can_vehicle": {
+      "days_with_data": 3,
+      "raw_mb": 10.5,
+      "derived_mb": 0.04,
+      "mb_per_day": 3.513,
+      "six_weeks_mb": 147.6
+    }
+  },
+  "phases": {
+    "A_queries_only": {
+      "latency": {
+        "common": {
+          "n": 954,
+          "p50_ms": 11.8,
+          "p95_ms": 37.9,
+          "max_ms": 110.4
+        },
+        "diagnostic": {
+          "n": 108,
+          "p50_ms": 9.1,
+          "p95_ms": 390.7,
+          "max_ms": 639.4
+        },
+        "refusal": {
+          "n": 216,
+          "p50_ms": 2.7,
+          "p95_ms": 25.7,
+          "max_ms": 28.8
+        }
+      },
+      "peak_mb": {
+        "assistant": 198
+      }
+    },
+    "B_queries_with_ingest": {
+      "latency": {
+        "common": {
+          "n": 954,
+          "p50_ms": 14.7,
+          "p95_ms": 41.7,
+          "max_ms": 166.7
+        },
+        "diagnostic": {
+          "n": 108,
+          "p50_ms": 21.3,
+          "p95_ms": 334.5,
+          "max_ms": 445.2
+        },
+        "refusal": {
+          "n": 216,
+          "p50_ms": 3.0,
+          "p95_ms": 27.0,
+          "max_ms": 41.0
+        }
+      },
+      "peak_mb": {
+        "assistant": 201,
+        "ingest_replay": 88
+      }
+    },
+    "C_queries_with_slm": {
+      "latency": {
+        "common": {
+          "n": 954,
+          "p50_ms": 12.0,
+          "p95_ms": 45.6,
+          "max_ms": 113.7
+        },
+        "diagnostic": {
+          "n": 108,
+          "p50_ms": 21.9,
+          "p95_ms": 362.6,
+          "max_ms": 525.6
+        },
+        "refusal": {
+          "n": 216,
+          "p50_ms": 3.1,
+          "p95_ms": 27.2,
+          "max_ms": 39.8
+        }
+      },
+      "peak_mb": {
+        "assistant": 200,
+        "llama_server": 567
+      },
+      "peak_total_mb": 762
+    }
+  },
+  "assistant_idle_rss_mb": 4.2
+}

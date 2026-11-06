@@ -1,0 +1,32 @@
+# VED (Vehicle Energy Dataset, github.com/gsoh/VED) -> canonical signals.
+# Units come from schema/vss_mapping.yaml; `scale` converts the raw column into that unit.
+
+dataset: ved
+scenario_id: ved_github_2019        # dataset release, not a scenario label
+source_type: recorded
+# README: "DayNum 1 = Nov 1st 2017, 00:00:00". No time zone is given; the fleet drove in
+# Ann Arbor, Michigan, so local time America/Detroit is ASSUMED.
+timezone: America/Detroit
+day0_local: "2017-11-01 00:00:00"
+
+signals:
+  - {raw: "Vehicle Speed[km/h]", path: Vehicle.Speed}
+  - {raw: "Latitude[deg]", path: Vehicle.CurrentLocation.Latitude}
+  - {raw: "Longitude[deg]", path: Vehicle.CurrentLocation.Longitude}
+  - {raw: "OAT[DegC]", path: Vehicle.Exterior.AirTemperature}
+  - {raw: "MAF[g/sec]", path: Vehicle.OBD.MAF}
+  - {raw: "Engine RPM[RPM]", path: Vehicle.OBD.EngineSpeed}
+  - {raw: "Absolute Load[%]", path: Vehicle.OBD.AbsoluteLoad}
+  - {raw: "Fuel Rate[L/hr]", path: Vehicle.OBD.FuelRate}
+  # The kW and Watts columns are never populated on the same row (checked 2026-10-29).
+  - {expr: 'COALESCE("Air Conditioning Power[kW]" * 1000.0, "Air Conditioning Power[Watts]")',
+     path: Vehicle.VendorExt.Cabin.AirConditioningPower}
+  - {raw: "Heater Power[Watts]", path: Vehicle.VendorExt.Cabin.HeaterPower}
+  # Current is already negative while driving (discharge), matching the VSS sign convention.
+  - {raw: "HV Battery Current[A]", path: Vehicle.Powertrain.TractionBattery.CurrentCurrent}
+  - {raw: "HV Battery SOC[%]", path: Vehicle.Powertrain.TractionBattery.StateOfCharge.Current}
+  - {raw: "HV Battery Voltage[V]", path: Vehicle.Powertrain.TractionBattery.CurrentVoltage}
+  - {raw: "Short Term Fuel Trim Bank 1[%]", path: Vehicle.OBD.ShortTermFuelTrim1}
+  - {raw: "Short Term Fuel Trim Bank 2[%]", path: Vehicle.OBD.ShortTermFuelTrim2}
+  - {raw: "Long Term Fuel Trim Bank 1[%]", path: Vehicle.OBD.LongTermFuelTrim1}
+  - {raw: "Long Term Fuel Trim Bank 2[%]", path: Vehicle.OBD.LongTermFuelTrim2}

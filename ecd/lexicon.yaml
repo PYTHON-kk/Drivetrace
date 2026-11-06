@@ -1,0 +1,58 @@
+# Evidence-Compiled Decoding (solution_journey §8.11) - licensed vocabulary.
+#
+# The model never writes text. It emits *choices* (letters, underscores and ':' only - no digits),
+# restricted by a grammar compiled from one evidence record:
+#   - a claim choice  "<claim>:<phrase>"  for a claim that is in the record (C2), with a phrase whose level is
+#     at or below the claim's epistemic level (C3);
+#   - an evidence choice "<feature>" for a feature that has a value in the record (C2).
+# The renderer turns choices into text; every number comes from a record slot (C1).
+# Required caveats are added by the renderer and cannot be omitted by the model.
+
+version: "1.0"
+levels: [INSUFFICIENT, OBSERVED, ASSOCIATED, CONSISTENT_WITH, ATTRIBUTED]
+
+# record hypothesis id -> choice word, kind, labels per role
+claims:
+  cooling_degradation:      {word: cooling, kind: fault, label: "reduced battery cooling", driver: "the battery cooling is not working as well as usual"}
+  elevated_electrical_load: {word: load, kind: fault, label: "high electrical load", driver: "the battery was working unusually hard (high charging or driving power)"}
+  temperature_sensor_fault: {word: sensor, kind: fault, label: "a battery temperature sensor fault", driver: "a battery temperature sensor may be giving wrong readings"}
+  pump_not_commanded:       {word: pump_off, kind: normal, label: "the coolant pump was not asked to run, so zero pump speed is expected", driver: "the cooling pump was simply not needed"}
+  none:                     {word: normal, kind: normal, label: "nothing differs from comparable earlier sessions", driver: "everything looks normal"}
+  stale_or_missing_signal:  {word: stale_data, kind: data, label: "a sensor reading needed for this is frozen or missing", driver: "one of the battery readings is not working, so this cannot be checked"}
+  insufficient:             {word: no_conclusion, kind: insufficient, label: "the data is not sufficient to explain this", driver: "there is not enough data to explain this"}
+
+# phrase word -> level and text. A claim may use any phrase of its kind whose level <= the claim's level.
+phrases:
+  fault:
+    # `text` takes a noun phrase (service/fleet labels); `driver` takes the driver label, which is a clause.
+    caused:     {level: ATTRIBUTED, text: "{label} was a but-for cause of the warning within the declared battery model", driver: "the warning happened because {label}"}
+    consistent: {level: CONSISTENT_WITH, text: "the data is consistent with {label}", driver: "a likely reason is that {label}"}
+    possible:   {level: CONSISTENT_WITH, text: "{label} is a possible explanation; other causes are not excluded", driver: "one possible reason is that {label}, but there may be others"}
+  normal:
+    observed:   {level: OBSERVED, text: "{label}", driver: "{label}"}
+    no_change:  {level: ASSOCIATED, text: "{label}", driver: "{label}"}
+  data:
+    observed:   {level: OBSERVED, text: "{label}", driver: "{label}"}
+  insufficient:
+    stated:     {level: INSUFFICIENT, text: "{label}", driver: "{label}"}
+
+# evidence choice word -> record feature, label per role, roles that may see it
+features:
+  peak_temp:     {feature: peak_avg, label: "peak battery temperature", driver: "highest battery temperature", roles: [driver, service, fleet]}
+  outside_temp:  {feature: ambient, label: "outside temperature", driver: "outside temperature", roles: [driver, service, fleet]}
+  load:          {feature: load_i2, label: "battery load (mean current²)", roles: [service, fleet]}
+  heating:       {feature: thermal_response, label: "heating per unit load", roles: [service]}
+  pump_speed:    {feature: pump_speed_cmd, label: "coolant pump speed when commanded", roles: [service, fleet]}
+  coolant:       {feature: coolant_ratio, label: "coolant heat pick-up ratio", roles: [service]}
+  sensor_gap:    {feature: max_minus_avg_min, label: "lowest maximum-minus-average temperature", roles: [service]}
+  model_cooling: {feature: model_effectiveness, label: "cooling effectiveness fitted by the physical model, relative to design", roles: [service]}
+
+# Caveats are not choices: the renderer always adds the ones that apply.
+caveats:
+  model:      {text: "The physical model is the simulator's own model, so this checks the method, not a real vehicle.", driver: "This conclusion comes from a simulated test vehicle."}
+  unmatched:  {text: "The earlier sessions used for comparison were not closely matched in conditions.", driver: "Earlier trips or charges were not fully comparable."}
+  ambiguous:  {text: "Some checks on the data were inconclusive.", driver: "Some readings could not be fully checked."}
+  no_base:    {text: "No comparable earlier session was available.", driver: "There was no comparable earlier trip or charge."}
+
+roles: [driver, service, fleet]
+max_items: 5

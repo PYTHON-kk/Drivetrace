@@ -1,0 +1,8 @@
+ok    write to the data store (blocked)
+ok    write anywhere in the image (blocked)
+ok    open a CAN socket (blocked)
+ok    outbound TCP (raw socket, bypassing the in-process guard) (blocked)
+ok    DNS lookup of an external name (blocked)
+ok    gain privileges (blocked)
+ok    see vehicle devices (blocked)
+all isolation checks passed

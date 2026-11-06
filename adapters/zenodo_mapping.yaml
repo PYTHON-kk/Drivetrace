@@ -1,0 +1,64 @@
+# Zenodo record 2661316 "Vehicle CAN bus data (with GPS)" -> canonical signals.
+# Each HDF5 dataset is (N, 2) with column 0 = VALUE and column 1 = TIME [s] (the files' own
+# "Column 0: Time" description is wrong; verified 2026-10-29).
+# `raw_unit` must equal the dataset's Unit attribute, otherwise the adapter stops.
+
+dataset: zenodo_can
+scenario_id: zenodo_2661316_v1
+source_type: recorded
+# ASSUMPTION: all trips come from one vehicle (files differ only by driver and trip number).
+source_id: zenodo_can_vehicle
+# ASSUMPTION: logger "Start time" is local time; GPS places the trips around 48.2 N, 16.4 E.
+timezone: Europe/Vienna
+default_rate_hz: 10
+
+signals:
+  - {raw: CAN/VehicleSpeed, raw_unit: km/h, path: Vehicle.Speed}
+  - {raw: CAN/WheelSpeed_FL, raw_unit: km/h, path: Vehicle.Chassis.Axle.Row1.Wheel.Left.Speed}
+  - {raw: CAN/WheelSpeed_FR, raw_unit: km/h, path: Vehicle.Chassis.Axle.Row1.Wheel.Right.Speed}
+  - {raw: CAN/WheelSpeed_RL, raw_unit: km/h, path: Vehicle.Chassis.Axle.Row2.Wheel.Left.Speed}
+  - {raw: CAN/WheelSpeed_RR, raw_unit: km/h, path: Vehicle.Chassis.Axle.Row2.Wheel.Right.Speed}
+  - {raw: CAN/AccPedal, raw_unit: "%", path: Vehicle.Chassis.Accelerator.PedalPosition}
+  - {raw: CAN/SteerAngle1, raw_unit: Grad, path: Vehicle.Chassis.SteeringWheel.Angle,
+     note: "magnitude only - the CAN value is never negative"}
+  - {raw: CAN/Yawrate1, raw_unit: Grad/s, path: Vehicle.VendorExt.Chassis.YawRateMagnitude}
+  - {raw: CAN/BrkVoltage, raw_unit: V, path: Vehicle.VendorExt.Chassis.BrakeVoltage}
+  - {raw: CAN/EngineSpeed_CAN, raw_unit: 1/min, path: Vehicle.Powertrain.CombustionEngine.Speed, rate_hz: 5}
+  - {raw: CAN/Trq_Indicated, raw_unit: Nm, path: Vehicle.VendorExt.CombustionEngine.IndicatedTorque, rate_hz: 5}
+  - {raw: CAN/BoostPressure, raw_unit: bar, path: Vehicle.VendorExt.CombustionEngine.BoostPressure, rate_hz: 5}
+  - {raw: CAN/EngineTemperature, raw_unit: _C, path: Vehicle.Powertrain.CombustionEngine.ECT, rate_hz: 1}
+  - {raw: CAN/OilTemperature1, raw_unit: _C, path: Vehicle.Powertrain.CombustionEngine.EOT, rate_hz: 1}
+  - {raw: CAN/AmbientTemperature, raw_unit: _C, path: Vehicle.Exterior.AirTemperature, rate_hz: 1}
+  - {raw: CAN/AirIntakeTemperature, raw_unit: _C, path: Vehicle.OBD.IntakeTemp, rate_hz: 1}
+  # IMU: signed yaw rate and body accelerations. ASSUMPTION: X forward, Y left/lateral, Z up.
+  - {raw: Plugins/Gyroscope_Z, raw_unit: deg/s, path: Vehicle.AngularVelocity.Yaw}
+  - {raw: Plugins/Body_acceleration_X, raw_unit: m/s2, path: Vehicle.Acceleration.Longitudinal}
+  - {raw: Plugins/Body_acceleration_Y, raw_unit: m/s2, path: Vehicle.Acceleration.Lateral}
+  - {raw: Plugins/Body_acceleration_Z, raw_unit: m/s2, path: Vehicle.Acceleration.Vertical}
+  # Position is in arc-minutes ("'"); GPS/Latitude and GPS/Longitude are empty in every file.
+  - {raw: Math/Latitude_Vehicle, raw_unit: "'", path: Vehicle.CurrentLocation.Latitude, scale: 0.016666666666666666, rate_hz: 1}
+  - {raw: Math/Longitude_Vehicle, raw_unit: "'", path: Vehicle.CurrentLocation.Longitude, scale: 0.016666666666666666, rate_hz: 1}
+  - {raw: GPS/Z, raw_unit: m, path: Vehicle.CurrentLocation.Altitude, rate_hz: 1}
+  - {raw: GPS/Direction, raw_unit: deg., path: Vehicle.CurrentLocation.Heading, rate_hz: 1}
+  - {raw: GPS/Distance, raw_unit: m, path: Vehicle.TripMeterReading, scale: 0.001, rate_hz: 1}
+  - {raw: GPS/Velocity, raw_unit: km/h, path: Vehicle.VendorExt.GNSS.Speed, rate_hz: 1}
+  - {raw: GPS/GPS fix quality, raw_unit: "-", path: Vehicle.VendorExt.GNSS.FixQuality, rate_hz: 1}
+  - {raw: GPS/Used satellites, raw_unit: "-", path: Vehicle.VendorExt.GNSS.UsedSatellites, rate_hz: 1}
+
+# Rising edge above 0.5 -> WARNING_LAMP_ON, falling edge -> WARNING_LAMP_OFF (values are interpolated).
+lamps:
+  CAN/ENG_Hotlamp: engine_overtemperature
+  CAN/ENG_OBD2_Lamp: malfunction_indicator
+  CAN/ENG_Systemlamp: engine_system
+  CAN/ENG_Particle_Lamp: particulate_filter
+  CAN/ENG_FuelTankCap_Lamp: fuel_tank_cap
+  CAN/WIV_Oilpr_Warn_Engine: oil_pressure
+  CAN/WIV_Oilmin_Warn: oil_level_minimum
+  CAN/WIV_Sensorerror: oil_sensor_error
+  CAN/SCS_Error: cruise_control_error
+
+# Cruise control ("SCS") buttons -> ADAS events (system = cruise_control).
+cruise:
+  engage: {CAN/SCS_Tip_Set: set_button, CAN/SCS_Tip_Restart: resume_button}
+  disengage: {CAN/SCS_Cancel: cancel_button}
+edge_debounce_s: 1.0

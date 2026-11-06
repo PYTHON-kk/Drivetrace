@@ -1,0 +1,11 @@
+# Build context = drivetrace/. Data, models and environments are mounted at run time, never baked in.
+.venv/
+data/
+models/
+runtime/
+bench/results/
+.pytest_cache/
+**/__pycache__/
+*.pyc
+docs/
+tests/

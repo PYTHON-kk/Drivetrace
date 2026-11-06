@@ -1,0 +1,2 @@
+load_backend: loaded RPC backend from D:\projects\TATA\drivetrace\runtime\llama-b11606\ggml-rpc.dll
+load_backend: loaded CPU backend from D:\projects\TATA\drivetrace\runtime\llama-b11606\ggml-cpu-haswell.dll

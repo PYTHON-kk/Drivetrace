@@ -1,0 +1,20 @@
+# DriveTrace runtime configuration (target: ~2 GB RAM, 2 ARM cores).
+
+store:
+  duckdb_memory_limit: 512MB     # DuckDB buffer manager only; whole-process RSS is measured separately (NFR-03)
+  duckdb_threads: 2
+  temp_directory: data/tmp/duckdb
+  include_episodes: false        # labelled evaluation episodes are not part of the vehicle history
+
+memory:
+  aggregate_windows: ["1 hour", "1 day"]
+  capsule_before_min: 30         # FR-MEM-04: detail kept around warning events
+  capsule_after_min: 10
+  capsule_severities: [warning]
+  ring_buffer_rows: 200000       # FR-MEM-01: ~3.6 MB at 18 bytes/row
+
+paths:
+  sim_history: data/sim/history
+  sim_episodes: data/sim/episodes
+  processed: data/processed
+  derived: data/derived

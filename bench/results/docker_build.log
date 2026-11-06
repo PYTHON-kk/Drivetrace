@@ -1,0 +1,222 @@
+ Image drivetrace:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 526B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 879B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/python:3.13-slim
+#3 ...
+
+#4 [auth] library/python:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.13-slim
+#3 DONE 3.2s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 239B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 DONE 0.0s
+
+#7 [ 1/16] FROM docker.io/library/python:3.13-slim@sha256:2d44738ebf4ce5f63b9d9ea871e9c7cfdc0426f7b0c97cac915fd88ded1d86bb
+#7 resolve docker.io/library/python:3.13-slim@sha256:2d44738ebf4ce5f63b9d9ea871e9c7cfdc0426f7b0c97cac915fd88ded1d86bb 0.0s done
+#7 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 264.36kB 0.0s done
+#6 DONE 0.1s
+
+#7 [ 1/16] FROM docker.io/library/python:3.13-slim@sha256:2d44738ebf4ce5f63b9d9ea871e9c7cfdc0426f7b0c97cac915fd88ded1d86bb
+#7 sha256:6f058ad03f0cab30c01926ad20e38348fe53783080f5309e4bfc4d2709c5fbaf 0B / 251B 0.2s
+#7 sha256:6f058ad03f0cab30c01926ad20e38348fe53783080f5309e4bfc4d2709c5fbaf 251B / 251B 0.2s done
+#7 sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 0B / 11.92MB 0.3s
+#7 sha256:789960dca7c613e9d8872d4790f2ec423b8fe17f52989c6225982f28696e7315 0B / 1.29MB 0.2s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 0B / 29.86MB 0.2s
+#7 sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 2.10MB / 11.92MB 0.6s
+#7 sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 4.19MB / 11.92MB 0.8s
+#7 sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 5.24MB / 11.92MB 0.9s
+#7 sha256:789960dca7c613e9d8872d4790f2ec423b8fe17f52989c6225982f28696e7315 1.29MB / 1.29MB 1.0s done
+#7 sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 8.39MB / 11.92MB 1.2s
+#7 sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 9.44MB / 11.92MB 1.4s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 3.15MB / 29.86MB 1.2s
+#7 sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 10.49MB / 11.92MB 1.5s
+#7 sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 11.92MB / 11.92MB 1.6s done
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 8.39MB / 29.86MB 1.7s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 10.49MB / 29.86MB 1.8s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 12.58MB / 29.86MB 2.0s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 15.73MB / 29.86MB 2.1s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 17.83MB / 29.86MB 2.3s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 20.97MB / 29.86MB 2.4s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 23.07MB / 29.86MB 2.6s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 26.21MB / 29.86MB 2.7s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 28.31MB / 29.86MB 2.9s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 29.86MB / 29.86MB 3.0s
+#7 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 29.86MB / 29.86MB 3.0s done
+#7 extracting sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5
+#7 extracting sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 1.6s done
+#7 DONE 4.9s
+
+#7 [ 1/16] FROM docker.io/library/python:3.13-slim@sha256:2d44738ebf4ce5f63b9d9ea871e9c7cfdc0426f7b0c97cac915fd88ded1d86bb
+#7 extracting sha256:789960dca7c613e9d8872d4790f2ec423b8fe17f52989c6225982f28696e7315
+#7 extracting sha256:789960dca7c613e9d8872d4790f2ec423b8fe17f52989c6225982f28696e7315 0.2s done
+#7 DONE 5.1s
+
+#7 [ 1/16] FROM docker.io/library/python:3.13-slim@sha256:2d44738ebf4ce5f63b9d9ea871e9c7cfdc0426f7b0c97cac915fd88ded1d86bb
+#7 extracting sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f
+#7 extracting sha256:7d824d9f832184c4084576664b622717cb0eb579b504f2079d3b4ac36454761f 0.9s done
+#7 DONE 6.0s
+
+#7 [ 1/16] FROM docker.io/library/python:3.13-slim@sha256:2d44738ebf4ce5f63b9d9ea871e9c7cfdc0426f7b0c97cac915fd88ded1d86bb
+#7 extracting sha256:6f058ad03f0cab30c01926ad20e38348fe53783080f5309e4bfc4d2709c5fbaf 0.0s done
+#7 DONE 6.0s
+
+#8 [ 2/16] WORKDIR /app
+#8 DONE 0.4s
+
+#9 [ 3/16] COPY deploy/requirements-runtime.txt /tmp/requirements.txt
+#9 DONE 0.1s
+
+#10 [ 4/16] RUN pip install --no-cache-dir -r /tmp/requirements.txt && rm /tmp/requirements.txt
+#10 2.449 Collecting duckdb==2.0.0 (from -r /tmp/requirements.txt (line 3))
+#10 2.496   Downloading duckdb-2.0.0-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+#10 2.615 Collecting pyarrow==26.0.0 (from -r /tmp/requirements.txt (line 4))
+#10 2.625   Downloading pyarrow-26.0.0-cp313-cp313-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+#10 2.871 Collecting numpy==2.5.4 (from -r /tmp/requirements.txt (line 5))
+#10 2.879   Downloading numpy-2.5.4-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+#10 3.041 Collecting pandas==3.1.0 (from -r /tmp/requirements.txt (line 6))
+#10 3.054   Downloading pandas-3.1.0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (18 kB)
+#10 3.136 Collecting PyYAML==6.0.3 (from -r /tmp/requirements.txt (line 7))
+#10 3.144   Downloading pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+#10 3.185 Collecting tzdata==2026.6 (from -r /tmp/requirements.txt (line 8))
+#10 3.192   Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+#10 3.259 Collecting pytz==2026.5 (from -r /tmp/requirements.txt (line 9))
+#10 3.268   Downloading pytz-2026.5-py2.py3-none-any.whl.metadata (22 kB)
+#10 3.313 Collecting python-dateutil==3.0.0 (from -r /tmp/requirements.txt (line 10))
+#10 3.320   Downloading python_dateutil-3.0.0-py2.py3-none-any.whl.metadata (8.2 kB)
+#10 3.358 Collecting six==1.17.0 (from -r /tmp/requirements.txt (line 11))
+#10 3.365   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+#10 3.438 Collecting fastapi==0.162.0 (from -r /tmp/requirements.txt (line 12))
+#10 3.447   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+#10 3.505 Collecting starlette==1.10.0 (from -r /tmp/requirements.txt (line 13))
+#10 3.514   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#10 3.658 Collecting pydantic==2.14.1 (from -r /tmp/requirements.txt (line 14))
+#10 3.666   Downloading pydantic-2.14.1-py3-none-any.whl.metadata (133 kB)
+#10 4.651 Collecting pydantic_core==2.50.1 (from -r /tmp/requirements.txt (line 15))
+#10 4.660   Downloading pydantic_core-2.50.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.5 kB)
+#10 4.698 Collecting annotated-types==0.8.0 (from -r /tmp/requirements.txt (line 16))
+#10 4.706   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#10 4.745 Collecting typing-inspection==0.4.4 (from -r /tmp/requirements.txt (line 17))
+#10 4.751   Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+#10 4.794 Collecting typing_extensions==4.16.0 (from -r /tmp/requirements.txt (line 18))
+#10 4.802   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#10 4.855 Collecting uvicorn==0.54.0 (from -r /tmp/requirements.txt (line 19))
+#10 4.863   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#10 4.908 Collecting click==8.5.0 (from -r /tmp/requirements.txt (line 20))
+#10 4.916   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#10 4.954 Collecting h11==0.16.0 (from -r /tmp/requirements.txt (line 21))
+#10 4.960   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#10 5.006 Collecting anyio==4.15.1 (from -r /tmp/requirements.txt (line 22))
+#10 5.013   Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+#10 5.051 Collecting idna==3.20 (from -r /tmp/requirements.txt (line 23))
+#10 5.057   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#10 5.131 Collecting h5py==3.16.0 (from -r /tmp/requirements.txt (line 24))
+#10 5.139   Downloading h5py-3.16.0-cp313-cp313-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+#10 5.184 Collecting annotated-doc>=0.0.2 (from fastapi==0.162.0->-r /tmp/requirements.txt (line 12))
+#10 5.189   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+#10 5.231 Collecting opentelemetry-api>=1.44.0 (from fastapi==0.162.0->-r /tmp/requirements.txt (line 12))
+#10 5.239   Downloading opentelemetry_api-1.45.1-py3-none-any.whl.metadata (1.4 kB)
+#10 5.261 Downloading duckdb-2.0.0-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (24.4 MB)
+#10 6.599    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.4/24.4 MB 18.2 MB/s  0:00:01
+#10 6.608 Downloading pyarrow-26.0.0-cp313-cp313-manylinux_2_28_x86_64.whl (53.9 MB)
+#10 9.527    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.9/53.9 MB 18.5 MB/s  0:00:02
+#10 9.539 Downloading numpy-2.5.4-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+#10 10.59    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 16.0 MB/s  0:00:01
+#10 10.60 Downloading pandas-3.1.0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.0 MB)
+#10 11.27    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 18.0 MB/s  0:00:00
+#10 11.28 Downloading pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (801 kB)
+#10 11.33    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 801.6/801.6 kB 17.5 MB/s  0:00:00
+#10 11.34 Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+#10 11.37 Downloading pytz-2026.5-py2.py3-none-any.whl (506 kB)
+#10 11.40 Downloading python_dateutil-3.0.0-py2.py3-none-any.whl (94 kB)
+#10 11.41 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+#10 11.42 Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+#10 11.43 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+#10 11.44 Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+#10 11.46 Downloading pydantic-2.14.1-py3-none-any.whl (488 kB)
+#10 11.49 Downloading pydantic_core-2.50.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.2 MB)
+#10 11.61    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 18.6 MB/s  0:00:00
+#10 11.62 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#10 11.63 Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+#10 11.63 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#10 11.65 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#10 11.66 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#10 11.67 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#10 11.68 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#10 11.69 Downloading h5py-3.16.0-cp313-cp313-manylinux_2_28_x86_64.whl (5.4 MB)
+#10 11.98    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 18.8 MB/s  0:00:00
+#10 11.99 Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+#10 12.00 Downloading opentelemetry_api-1.45.1-py3-none-any.whl (60 kB)
+#10 12.38 Installing collected packages: pytz, tzdata, typing_extensions, six, PyYAML, pyarrow, numpy, idna, h11, duckdb, click, annotated-types, annotated-doc, uvicorn, typing-inspection, python-dateutil, pydantic_core, opentelemetry-api, h5py, anyio, starlette, pydantic, pandas, fastapi
+#10 26.24 
+#10 26.25 Successfully installed PyYAML-6.0.3 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 click-8.5.0 duckdb-2.0.0 fastapi-0.162.0 h11-0.16.0 h5py-3.16.0 idna-3.20 numpy-2.5.4 opentelemetry-api-1.45.1 pandas-3.1.0 pyarrow-26.0.0 pydantic-2.14.1 pydantic_core-2.50.1 python-dateutil-3.0.0 pytz-2026.5 six-1.17.0 starlette-1.10.0 typing-inspection-0.4.4 typing_extensions-4.16.0 tzdata-2026.6 uvicorn-0.54.0
+#10 26.25 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#10 DONE 27.1s
+
+#11 [ 5/16] COPY schema/ schema/
+#11 DONE 0.2s
+
+#12 [ 6/16] COPY sim/ sim/
+#12 DONE 0.1s
+
+#13 [ 7/16] COPY adapters/ adapters/
+#13 DONE 0.1s
+
+#14 [ 8/16] COPY memory/ memory/
+#14 DONE 0.1s
+
+#15 [ 9/16] COPY ingest/ ingest/
+#15 DONE 0.1s
+
+#16 [10/16] COPY diagnosis/ diagnosis/
+#16 DONE 0.1s
+
+#17 [11/16] COPY query/ query/
+#17 DONE 0.1s
+
+#18 [12/16] COPY ecd/ ecd/
+#18 DONE 0.1s
+
+#19 [13/16] COPY security/ security/
+#19 DONE 0.1s
+
+#20 [14/16] COPY ui/ ui/
+#20 DONE 0.1s
+
+#21 [15/16] COPY config/ config/
+#21 DONE 0.1s
+
+#22 [16/16] RUN useradd --uid 10001 --no-create-home --shell /usr/sbin/nologin drivetrace
+#22 DONE 0.4s
+
+#23 exporting to image
+#23 exporting layers
+#23 exporting layers 18.1s done
+#23 exporting manifest sha256:c46ddba9aefe05da631eef4ab3115017f4eca7c94663e433e13ded333d505059 0.0s done
+#23 exporting config sha256:fba5995ea84dfd990084f8418fda9bc2535066500d3ac2ebfa76ccc91e5718a5 0.0s done
+#23 exporting attestation manifest sha256:bfe34418286dfc559271c5e28ab743c8b36343674910757026f9954e3def23ad 0.0s done
+#23 exporting manifest list sha256:ff46d8df548e3009e9f5d765d7d0e6d69e3f23d2333d39f92668abb66e24a763
+#23 exporting manifest list sha256:ff46d8df548e3009e9f5d765d7d0e6d69e3f23d2333d39f92668abb66e24a763 0.0s done
+#23 naming to docker.io/library/drivetrace:local done
+#23 unpacking to docker.io/library/drivetrace:local
+#23 unpacking to docker.io/library/drivetrace:local 7.9s done
+#23 DONE 26.2s
+
+#24 resolving provenance for metadata file
+#24 DONE 0.1s
+ Image drivetrace:local Built 
+exit 0

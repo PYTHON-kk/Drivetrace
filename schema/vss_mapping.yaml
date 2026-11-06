@@ -1,0 +1,138 @@
+# Signal catalogue for DriveTrace canonical records.
+#
+# status:
+#   vss        - path believed to exist in COVESA VSS; VERIFY against the pinned release before submission
+#   vendor_ext - not in VSS; documented DriveTrace vendor extension under Vehicle.VendorExt
+#
+# Sign convention (follows VSS TractionBattery.CurrentCurrent):
+#   battery current/power positive = flowing INTO the battery (charging), negative = discharging.
+
+vss_release: "6.1 (to be pinned; paths not yet verified)"
+
+signals:
+  Vehicle.Speed:
+    unit: km/h
+    status: vss
+    sim_period_s: 1
+  Vehicle.TraveledDistance:
+    unit: km
+    status: vss
+    sim_period_s: 10
+  Vehicle.Exterior.AirTemperature:
+    unit: degC
+    status: vss
+    sim_period_s: 30
+  Vehicle.CurrentLocation.Latitude:
+    unit: deg
+    status: vss
+    sim_period_s: 5
+    privacy: location
+  Vehicle.CurrentLocation.Longitude:
+    unit: deg
+    status: vss
+    sim_period_s: 5
+    privacy: location
+  Vehicle.Powertrain.Range:
+    unit: m
+    status: vss
+    sim_period_s: 30
+  Vehicle.Powertrain.TractionBattery.StateOfCharge.Current:
+    unit: percent
+    status: vss
+    sim_period_s: 10
+  Vehicle.Powertrain.TractionBattery.CurrentVoltage:
+    unit: V
+    status: vss
+    sim_period_s: 1
+  Vehicle.Powertrain.TractionBattery.CurrentCurrent:
+    unit: A
+    status: vss
+    sim_period_s: 1
+  Vehicle.Powertrain.TractionBattery.CurrentPower:
+    unit: W
+    status: vss
+    sim_period_s: 1
+  Vehicle.Powertrain.TractionBattery.Temperature.Average:
+    unit: degC
+    status: vss
+    sim_period_s: 5
+  Vehicle.Powertrain.TractionBattery.Temperature.Max:
+    unit: degC
+    status: vss
+    sim_period_s: 5
+  Vehicle.ADAS.CruiseControl.IsActive:
+    unit: bool
+    status: vss
+    sim_period_s: 1
+  Vehicle.VendorExt.TractionBattery.Cooling.PumpCommand:
+    unit: bool
+    status: vendor_ext
+    sim_period_s: 5
+    note: BMS request for the battery coolant pump to run
+  Vehicle.VendorExt.TractionBattery.Cooling.PumpSpeed:
+    unit: rpm
+    status: vendor_ext
+    sim_period_s: 5
+  Vehicle.VendorExt.TractionBattery.Cooling.CoolantOutletTemperature:
+    unit: degC
+    status: vendor_ext
+    sim_period_s: 5
+  Vehicle.VendorExt.Cabin.HeaterPower:
+    unit: W
+    status: vendor_ext
+    sim_period_s: 10
+  Vehicle.VendorExt.Cabin.AirConditioningPower:
+    unit: W
+    status: vendor_ext
+    sim_period_s: 10
+
+  # ---- signals used by recorded-data adapters (no sim_period_s: not produced by the simulator) ----
+  Vehicle.TripMeterReading: {unit: km, status: vss}
+  Vehicle.CurrentLocation.Altitude: {unit: m, status: vss, privacy: location}
+  Vehicle.CurrentLocation.Heading: {unit: deg, status: vss, privacy: location}
+  Vehicle.OBD.MAF: {unit: g/s, status: vss}
+  Vehicle.OBD.EngineSpeed: {unit: rpm, status: vss}
+  Vehicle.OBD.AbsoluteLoad: {unit: percent, status: vss}
+  Vehicle.OBD.FuelRate: {unit: l/h, status: vss}
+  Vehicle.OBD.IntakeTemp: {unit: degC, status: vss}
+  Vehicle.OBD.ShortTermFuelTrim1: {unit: percent, status: vss}
+  Vehicle.OBD.ShortTermFuelTrim2: {unit: percent, status: vss}
+  Vehicle.OBD.LongTermFuelTrim1: {unit: percent, status: vss}
+  Vehicle.OBD.LongTermFuelTrim2: {unit: percent, status: vss}
+  Vehicle.Chassis.Axle.Row1.Wheel.Left.Speed: {unit: km/h, status: vss}
+  Vehicle.Chassis.Axle.Row1.Wheel.Right.Speed: {unit: km/h, status: vss}
+  Vehicle.Chassis.Axle.Row2.Wheel.Left.Speed: {unit: km/h, status: vss}
+  Vehicle.Chassis.Axle.Row2.Wheel.Right.Speed: {unit: km/h, status: vss}
+  Vehicle.Chassis.SteeringWheel.Angle: {unit: deg, status: vss}
+  Vehicle.Chassis.Accelerator.PedalPosition: {unit: percent, status: vss}
+  Vehicle.AngularVelocity.Yaw: {unit: deg/s, status: vss}
+  Vehicle.Acceleration.Longitudinal: {unit: m/s^2, status: vss}
+  Vehicle.Acceleration.Lateral: {unit: m/s^2, status: vss}
+  Vehicle.Acceleration.Vertical: {unit: m/s^2, status: vss}
+  Vehicle.Powertrain.CombustionEngine.Speed: {unit: rpm, status: vss}
+  Vehicle.Powertrain.CombustionEngine.ECT: {unit: degC, status: vss, note: engine coolant temperature}
+  Vehicle.Powertrain.CombustionEngine.EOT: {unit: degC, status: vss, note: engine oil temperature}
+  Vehicle.VendorExt.CombustionEngine.BoostPressure: {unit: bar, status: vendor_ext}
+  Vehicle.VendorExt.CombustionEngine.IndicatedTorque: {unit: Nm, status: vendor_ext}
+  Vehicle.VendorExt.Chassis.BrakeVoltage: {unit: V, status: vendor_ext, note: raw brake signal voltage, meaning undocumented}
+  Vehicle.VendorExt.Chassis.YawRateMagnitude: {unit: deg/s, status: vendor_ext, note: unsigned CAN yaw rate}
+  Vehicle.VendorExt.GNSS.Speed: {unit: km/h, status: vendor_ext}
+  Vehicle.VendorExt.GNSS.FixQuality: {unit: none, status: vendor_ext}
+  Vehicle.VendorExt.GNSS.UsedSatellites: {unit: count, status: vendor_ext}
+
+# Discrete events (stored in the events table, not as signals).
+events:
+  IGNITION_ON: {subsystem: body}
+  IGNITION_OFF: {subsystem: body}
+  CHARGING_STARTED: {subsystem: charging}
+  CHARGING_STOPPED: {subsystem: charging}
+  BATT_OVERTEMP_WARNING_SET: {subsystem: bms, code: P0A7E, severity: warning}
+  BATT_OVERTEMP_WARNING_CLEARED: {subsystem: bms, code: P0A7E, severity: info}
+  BMS_POWER_DERATE_SET: {subsystem: bms, severity: info}
+  BMS_POWER_DERATE_CLEARED: {subsystem: bms, severity: info}
+  ADAS_ENGAGED: {subsystem: adas, severity: info}
+  ADAS_DISENGAGED: {subsystem: adas, severity: info}
+  WARNING_LAMP_ON: {subsystem: instrument_cluster, severity: warning, note: attrs.lamp names the lamp}
+  WARNING_LAMP_OFF: {subsystem: instrument_cluster, severity: info}
+  LOGGER_TIMECODE_LOST: {subsystem: logger, severity: info, note: data-quality notice from the recording device}
+  LOGGER_TIMECODE_RESTORED: {subsystem: logger, severity: info}

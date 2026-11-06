@@ -1,0 +1,18 @@
+ Container drivetrace-ingest-1 Creating 
+ Network drivetrace_local_only Creating 
+ Network drivetrace_local_only Creating 
+ Network drivetrace_local_only Created 
+ Network drivetrace_local_only Created 
+ Container drivetrace-ingest-1 Created 
+ Container drivetrace-assistant-1 Creating 
+ Container drivetrace-assistant-1 Created 
+ Container drivetrace-ingest-1 Starting 
+ Container drivetrace-ingest-1 Started 
+ Container drivetrace-ingest-1 Waiting 
+ Container drivetrace-ingest-1 Exited 
+ Container drivetrace-assistant-1 Starting 
+ Container drivetrace-assistant-1 Started 
+exit 0 after 270 s
+NAME                     IMAGE              COMMAND                  SERVICE     CREATED         STATUS                    PORTS
+drivetrace-assistant-1   drivetrace:local   "python -m uvicorn u…"   assistant   4 minutes ago   Up 1 second               127.0.0.1:8765->8765/tcp
+drivetrace-ingest-1      drivetrace:local   "python -m memory.bu…"   ingest      4 minutes ago   Exited (0) 1 second ago   

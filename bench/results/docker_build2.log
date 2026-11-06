@@ -1,0 +1,90 @@
+ Image drivetrace:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 526B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 879B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.13-slim
+#3 ...
+
+#4 [auth] library/python:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.13-slim
+#3 DONE 1.4s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 239B done
+#5 DONE 0.0s
+
+#6 [ 1/16] FROM docker.io/library/python:3.13-slim@sha256:2d44738ebf4ce5f63b9d9ea871e9c7cfdc0426f7b0c97cac915fd88ded1d86bb
+#6 resolve docker.io/library/python:3.13-slim@sha256:2d44738ebf4ce5f63b9d9ea871e9c7cfdc0426f7b0c97cac915fd88ded1d86bb 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 4.20kB done
+#7 DONE 0.0s
+
+#8 [11/16] COPY query/ query/
+#8 CACHED
+
+#9 [ 4/16] RUN pip install --no-cache-dir -r /tmp/requirements.txt && rm /tmp/requirements.txt
+#9 CACHED
+
+#10 [10/16] COPY diagnosis/ diagnosis/
+#10 CACHED
+
+#11 [ 2/16] WORKDIR /app
+#11 CACHED
+
+#12 [ 3/16] COPY deploy/requirements-runtime.txt /tmp/requirements.txt
+#12 CACHED
+
+#13 [ 8/16] COPY memory/ memory/
+#13 CACHED
+
+#14 [ 9/16] COPY ingest/ ingest/
+#14 CACHED
+
+#15 [ 5/16] COPY schema/ schema/
+#15 CACHED
+
+#16 [ 6/16] COPY sim/ sim/
+#16 CACHED
+
+#17 [ 7/16] COPY adapters/ adapters/
+#17 CACHED
+
+#18 [12/16] COPY ecd/ ecd/
+#18 CACHED
+
+#19 [13/16] COPY security/ security/
+#19 DONE 0.1s
+
+#20 [14/16] COPY ui/ ui/
+#20 DONE 0.1s
+
+#21 [15/16] COPY config/ config/
+#21 DONE 0.1s
+
+#22 [16/16] RUN useradd --uid 10001 --no-create-home --shell /usr/sbin/nologin drivetrace
+#22 DONE 0.4s
+
+#23 exporting to image
+#23 exporting layers
+#23 exporting layers 0.3s done
+#23 exporting manifest sha256:16e81b3288ba5d3099216690c81080086c2fe9d1b30ac92b8eb1e3bc20451888 0.0s done
+#23 exporting config sha256:e8561e16e7f2ee12c7761c1d289a9d4ffb93c4f17ad110f05c16d34d03f8034b 0.0s done
+#23 exporting attestation manifest sha256:fcce445859b09443a2299b7a8537e2339cea2b3bec86475607155eeb9563c5ef 0.0s done
+#23 exporting manifest list sha256:29f0f0769a80ee55f5cbeddbf54fa2425061c2ae4ae6ebb347e71f4acb40f7e6 0.0s done
+#23 naming to docker.io/library/drivetrace:local
+#23 naming to docker.io/library/drivetrace:local done
+#23 unpacking to docker.io/library/drivetrace:local 0.1s done
+#23 DONE 0.6s
+
+#24 resolving provenance for metadata file
+#24 DONE 0.0s
+ Image drivetrace:local Built 

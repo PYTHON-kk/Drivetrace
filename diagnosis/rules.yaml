@@ -1,0 +1,123 @@
+# Declared diagnostic rules (P4). Thresholds were tuned on the TRAIN episodes and the six-week history only
+# (data/sim/labels/splits.json); dev and test episodes are reported, never tuned on.
+# A well-fitting physical model (model_effectiveness) outweighs comparisons with baselines, because baselines
+# are only presumed healthy and may already be degraded.
+# Scores are compatibility scores, not probabilities (solution_journey Defect 8).
+
+version: "1.1"   # 1.1: persistent contradiction, abnormal-heating requirement, stale core temperatures
+
+# Natural variation used as the floor for robust z-scores: z = (x - median(B)) / max(1.4826 * MAD(B), floor)
+scale_floor:
+  load_i2: 2000.0             # A^2
+  rise_rate: 0.08             # degC/min
+  thermal_response: 0.05      # degC/min per 10^4 A^2
+  pump_speed_cmd: 60.0        # rpm
+  coolant_ratio: 0.05
+  max_minus_avg: 0.6          # degC
+  peak_avg: 1.5               # degC
+  peak_max: 1.5               # degC
+  max_minus_avg_min: 0.6      # degC
+  pump_duty: 0.2
+  pump_zero_while_commanded_s: 30.0
+  ambient: 2.0                # degC
+# Features without a floor here are reported but never z-scored or counted as "deviating".
+
+gate:
+  min_coverage: 0.6           # fraction of the window covered by samples
+  max_gap_s: 180
+  stale_constant_s: 300       # continuous signal identical for this long = stale
+  contradiction_min_share: 0.3  # v1.1: Max < Avg - 0.5 degC in at least this share of aligned samples
+  required: [Vehicle.Powertrain.TractionBattery.Temperature.Average]
+  # Signals the vehicle logs in each kind of session (a parked vehicle sleeps and logs only a few).
+  expected_signals:
+    park: [Vehicle.Powertrain.TractionBattery.Temperature.Average, Vehicle.Powertrain.TractionBattery.Temperature.Max,
+           Vehicle.Exterior.AirTemperature, Vehicle.Powertrain.TractionBattery.StateOfCharge.Current]
+  thermal_signals:            # needed to judge cooling; missing/stale -> cooling cannot be assessed
+    - Vehicle.Powertrain.TractionBattery.CurrentCurrent
+    - Vehicle.VendorExt.TractionBattery.Cooling.PumpSpeed
+  physical_range:
+    Vehicle.Powertrain.TractionBattery.Temperature.Average: [-40, 80]
+    Vehicle.Powertrain.TractionBattery.Temperature.Max: [-40, 90]
+    Vehicle.Powertrain.TractionBattery.CurrentCurrent: [-600, 600]
+    Vehicle.VendorExt.TractionBattery.Cooling.PumpSpeed: [0, 6000]
+
+# Feature references:  <feature>.obs | .base | .rel | .z     flags: flag:<name>
+# A hypothesis is ACCEPTED when its score >= accept and every `requires` feature is available.
+accept: 2.5
+hypotheses:
+  elevated_electrical_load:
+    label: elevated electrical load (high charging or driving current)
+    requires: [load_i2.rel]
+    supports:
+      - {when: "load_i2.rel > 0.5", weight: 1.5, says: "battery load (mean I²) well above the matched baseline"}
+      - {when: "load_i2.z > 2.5", weight: 1.5, says: "the load increase is beyond the baseline's normal variation"}
+      - {when: "load_i2.rel > 0.8", weight: 0.5, says: "battery load is far above the matched baseline"}
+      - {when: "ambient.obs > 28", weight: 0.5, says: "hot outside temperature"}
+      - {when: "thermal_response.rel < 0.35", weight: 1.0, says: "heating per unit load is normal"}
+    contradicts:
+      - {when: "load_i2.rel < 0.1", weight: 2.0, says: "load is not above the baseline"}
+      - {when: "flag:temperatures_normal", weight: 2.0, says: "battery temperatures are normal, so the load is not causing a problem"}
+      - {when: "flag:heating_normal", weight: 3.0, says: "no abnormal heating to explain"}
+      - {when: "flag:stale_Average", weight: 3.0, says: "the average temperature reading is frozen"}
+
+  cooling_degradation:
+    label: reduced battery cooling
+    requires: []
+    supports:
+      - {when: "thermal_response.rel > 0.5", weight: 2.0, says: "battery heats faster per unit load than in the baseline"}
+      - {when: "pump_speed_cmd.rel < -0.15", weight: 1.5, says: "coolant pump runs slower than in the baseline when commanded"}
+      - {when: "coolant_ratio.rel < -0.25", weight: 1.0, says: "coolant carries away less heat than in the baseline"}
+      - {when: "model_effectiveness.obs < 0.6", weight: 3.0, says: "the physical model needs much less cooling than declared to fit the data"}
+    contradicts:
+      - {when: "thermal_response.rel < 0.2", weight: 1.0, says: "heating per unit load is normal"}
+      - {when: "model_effectiveness.obs > 0.85", weight: 2.0, says: "the physical model fits with normal cooling"}
+      - {when: "flag:temperatures_normal", weight: 2.0, says: "battery temperatures are normal"}
+      - {when: "flag:heating_normal", weight: 3.0, says: "no abnormal heating to explain"}
+      - {when: "flag:stale_Average", weight: 3.0, says: "the average temperature reading is frozen"}
+
+  temperature_sensor_fault:
+    label: battery temperature sensor fault
+    requires: []
+    supports:
+      - {when: "flag:max_below_avg", weight: 3.0, says: "maximum temperature reads below the average (physically impossible)"}
+      - {when: "max_minus_avg.z < -4", weight: 1.0, says: "the gap between maximum and average sensors changed sharply"}
+    contradicts: []
+
+  pump_not_commanded:
+    label: normal operation - the coolant pump was not commanded to run
+    requires: []
+    supports:
+      - {when: "flag:pump_off_not_commanded", weight: 2.0, says: "pump speed is zero and the pump was not commanded"}
+      - {when: "flag:temperatures_normal", weight: 1.0, says: "battery temperatures are normal"}
+    contradicts:
+      - {when: "flag:pump_zero_while_commanded", weight: 3.0, says: "pump speed is zero although the pump was commanded"}
+
+  stale_or_missing_signal:
+    label: stale or missing sensor data
+    requires: []
+    supports:
+      - {when: "flag:pump_speed_stale", weight: 3.0, says: "pump speed value is frozen"}
+      - {when: "flag:pump_speed_missing", weight: 3.0, says: "pump speed samples are missing"}
+      - {when: "flag:stale_Average", weight: 3.0, says: "the average battery temperature value is frozen"}
+      - {when: "flag:stale_Max", weight: 3.0, says: "the maximum battery temperature value is frozen"}
+      - {when: "flag:missing_Max", weight: 3.0, says: "maximum battery temperature samples are missing"}
+      - {when: "flag:missing_Average", weight: 3.0, says: "average battery temperature samples are missing"}
+      - {when: "flag:pump_reading_contradicts_cooling", weight: 3.0, says: "pump speed reads 0 while commanded, yet the battery is cooled normally"}
+    contradicts: []
+
+  none:
+    label: no anomaly against the matched baseline
+    requires: []
+    supports:
+      - {when: "flag:no_deviation", weight: 3.0, says: "no feature deviates from the matched baseline"}
+    contradicts:
+      - {when: "flag:warning_present", weight: 3.0, says: "a warning was raised"}
+
+# Normal-operation explanations are dropped when a fault hypothesis is accepted;
+# 'none' is dropped when a more specific normal explanation is accepted.
+normal: [none, pump_not_commanded]
+
+counterfactual:
+  warning_threshold_c: 42.0   # declared BMS warning threshold for the average temperature
+  warning_max_c: 44.0         # ... and for the maximum temperature (predicted as average + observed max-avg gap)
+  effectiveness_grid: [0.05, 1.5, 0.05]

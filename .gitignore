@@ -1,0 +1,49 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Testing & quality tools
+.pytest_cache/
+.hypothesis/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Vehicle data & derived parquet (keep provenance manifest)
+data/*
+!data/MANIFEST.md
+
+# Large model weights (keep provenance documentation)
+models/*
+!models/MODELS.md
+
+# Local runtime & binaries (llama.cpp Windows/Linux binaries, downloads)
+runtime/
+
+# IDE & OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Temporary files
+*.tmp

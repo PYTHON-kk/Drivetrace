@@ -1,0 +1,14 @@
+
+SmolLM2-360M-Instruct-Q4_K_M.gguf
+  cond  untraceable#  out-of-record  overclaim  valid  covers  p50 ms  gen tok prompt tok
+  F1          4/17           0/17       0/17    17/17   2/17     3699       19      336.8
+  F2          0/17           4/17       0/17    17/17   8/17     4308     21.1      358.8
+  F3          0/17           0/17       0/17    17/17  12/17     1152       22       83.2
+  F4          0/17           0/17       0/17    17/17  14/17     1412     18.2         89
+
+qwen2.5-0.5b-instruct-q4_k_m.gguf
+  cond  untraceable#  out-of-record  overclaim  valid  covers  p50 ms  gen tok prompt tok
+  F1          3/17           2/17       1/17    17/17  13/17     8508    116.2      328.4
+  F2          0/17           6/17       0/17    17/17  15/17     4686     16.5      350.4
+  F3          0/17           0/17       0/17    17/17  16/17     1013     17.4       81.2
+  F4          0/17           0/17       0/17    17/17  13/17     1622     15.9       86.2

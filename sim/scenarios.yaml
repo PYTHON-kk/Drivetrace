@@ -1,0 +1,159 @@
+# Scenario definitions for the synthetic vehicle (solution_journey §9.2, scenarios S0-S7).
+# Everything generated from this file is SIMULATED and must be labelled source_type=simulated.
+# Ground-truth labels are written to data/sim/labels/ and must never be read by the assistant.
+
+vehicle:
+  source_id: sim_ev_01
+  timezone: Europe/Berlin
+  home: [48.137, 11.575]
+  work: [48.215, 11.640]
+  initial: {soc: 0.82, temp_c: 19.0, odometer_km: 12480.0}
+
+# Expected-hypothesis vocabulary used by labels (and later by the hypothesis library):
+#   none, elevated_electrical_load, cooling_degradation, temperature_sensor_fault,
+#   pump_not_commanded, stale_or_missing_signal, unknown
+
+history:
+  run_id: hist6w_s42
+  seed: 42
+  start_local: "2026-09-16T00:00"
+  end_local: "2026-10-28T12:00"
+  climate: {mean_start_c: 21.0, mean_end_c: 6.0, diurnal_amp_c: 5.0, day_noise_sd_c: 1.5}
+  injections:
+    - id: S1_heatwave_towing_ultrafast
+      scenario: S1
+      day: 9
+      ambient_offset_c: 15.0
+      expected: [elevated_electrical_load]
+      trips:
+        - {depart: "08:30", kind: highway, distance_km: 150, dest: far, towing: true,
+           dc_charge: {power_w: 150000, target_soc: 0.9}}
+        - {depart: "16:30", kind: highway, distance_km: 150, dest: home}
+
+    - id: S4_pump_off_cold_morning
+      scenario: S4
+      day: 13
+      expected: [pump_not_commanded]
+      label_window: first_trip
+      notes: "Pump speed is 0 rpm because the BMS did not command the pump; not a fault."
+
+    - id: S3_avg_temp_sensor_bias
+      scenario: S3
+      day: 19
+      expected: [temperature_sensor_fault]
+      faults:
+        - {type: temp_avg_bias, start: "0+06:00", end: "2+20:00", params: {bias_c: 24.0}}
+      day_trips:
+        1:
+          - {depart: "07:30", kind: city, distance_km: 11, dest: work}
+          - {depart: "11:30", kind: highway, distance_km: 90, dest: far,
+             dc_charge: {power_w: 100000, target_soc: 0.85}}
+          - {depart: "15:00", kind: highway, distance_km: 95, dest: home}
+
+    - id: S5_pump_signal_stale_then_missing
+      scenario: S5
+      day: 24
+      expected: [stale_or_missing_signal]
+      faults:
+        - {type: pump_signal_stuck, start: "0+10:30", end: "0+13:30"}
+        - {type: pump_signal_missing, start: "0+13:30", end: "1+10:00"}
+      trips:
+        - {depart: "10:00", kind: highway, distance_km: 110, dest: far,
+           dc_charge: {power_w: 100000, target_soc: 0.85}}
+        - {depart: "15:00", kind: highway, distance_km: 110, dest: home}
+
+    - id: S2_cooling_degradation
+      scenario: S2
+      day: 29
+      expected: [cooling_degradation]
+      faults:
+        - {type: cooling_degradation, start: "0+08:00", end: "end", ramp_days: 5,
+           params: {effectiveness: 0.12, pump_speed_factor: 0.6}}
+      ambient_offset_days: {4: 9.0}   # warm spell on the trigger day
+      day_trips:
+        4:
+          - {depart: "07:30", kind: city, distance_km: 11, dest: work}
+          - {depart: "11:00", kind: highway, distance_km: 170, dest: far,
+             dc_charge: {power_w: 100000, target_soc: 0.9}}
+          - {depart: "15:30", kind: highway, distance_km: 160, dest: home}
+
+    - id: S6_towing_ultrafast_with_degraded_cooling
+      scenario: S6
+      day: 38
+      expected: [elevated_electrical_load, cooling_degradation]
+      trips:
+        - {depart: "09:30", kind: highway, distance_km: 130, dest: far, towing: true,
+           dc_charge: {power_w: 150000, target_soc: 0.9}}
+        - {depart: "16:00", kind: highway, distance_km: 150, dest: home}
+
+    - id: ADAS_yesterday_highway
+      scenario: none
+      day: 41
+      expected: [none]
+      trips:
+        - {depart: "07:30", kind: city, distance_km: 11, dest: work}
+        - {depart: "13:00", kind: highway, distance_km: 85, dest: far}
+        - {depart: "16:00", kind: highway, distance_km: 90, dest: home}
+
+episodes:
+  days: 3
+  start_date: "2026-06-01"
+  splits: {train: [0, 1, 2], dev: [3], test: [4, 5]}
+  heldout_scenarios: [S7]     # test split only
+  heldout_seeds: [0, 1, 2]
+  baseline_day:               # days 0 and 1: gives matched healthy windows
+    - {depart: "08:00", kind: city, distance_km: 10, dest: errand}
+    - {depart: "10:00", kind: highway, distance_km: 150, dest: far,
+       dc_charge: {power_w: 100000, target_soc: 0.8}}
+    - {depart: "14:30", kind: highway, distance_km: 120, dest: home}
+  templates:
+    S0: {ambient_c: [8, 24], expected: [none]}
+    S1:
+      ambient_c: [32, 35]
+      expected: [elevated_electrical_load]
+      trigger:
+        - {depart: "08:30", kind: highway, distance_km: 150, dest: far, towing: true,
+           dc_charge: {power_w: 150000, target_soc: 0.9}}
+        - {depart: "16:00", kind: highway, distance_km: 150, dest: home}
+    S2:
+      ambient_c: [22, 28]
+      expected: [cooling_degradation]
+      faults:
+        - {type: cooling_degradation, start: "1+12:00", end: "end", ramp_days: 0.5,
+           params: {effectiveness: [0.06, 0.14], pump_speed_factor: [0.5, 0.7]}}
+    S3:
+      ambient_c: [8, 24]
+      expected: [temperature_sensor_fault]
+      faults:
+        - {type: temp_avg_bias, start: "2+06:00", end: "end", params: {bias_c: [22, 26]}}
+    S4:
+      ambient_c: [2, 10]
+      expected: [pump_not_commanded]
+      label_window: first_trip
+      trigger:
+        - {depart: "07:00", kind: city, distance_km: 12, dest: work}
+        - {depart: "17:00", kind: city, distance_km: 12, dest: home}
+    S5:
+      ambient_c: [8, 24]
+      expected: [stale_or_missing_signal]
+      faults:
+        - {type: pump_signal_stuck, start: "2+09:30", end: "2+12:00"}
+        - {type: pump_signal_missing, start: "2+12:00", end: "end"}
+    S6:
+      ambient_c: [20, 28]
+      expected: [elevated_electrical_load, cooling_degradation]
+      faults:
+        - {type: cooling_degradation, start: "1+12:00", end: "end", ramp_days: 0.5,
+           params: {effectiveness: [0.08, 0.18], pump_speed_factor: [0.5, 0.7]}}
+      trigger:
+        - {depart: "08:30", kind: highway, distance_km: 150, dest: far, towing: true,
+           dc_charge: {power_w: 150000, target_soc: 0.9}}
+        - {depart: "16:00", kind: highway, distance_km: 150, dest: home}
+    S7:
+      ambient_c: [20, 28]
+      expected: [cooling_degradation, temperature_sensor_fault]
+      notes: "Held-out combination: real cooling degradation while the Max sensor under-reads."
+      faults:
+        - {type: cooling_degradation, start: "1+12:00", end: "end", ramp_days: 0.5,
+           params: {effectiveness: [0.08, 0.18], pump_speed_factor: [0.5, 0.7]}}
+        - {type: temp_max_bias, start: "1+12:00", end: "end", params: {bias_c: [-8, -5]}}

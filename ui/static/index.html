@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DriveTrace</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">◆</span>
+      <div>
+        <h1>DriveTrace</h1>
+        <p class="sub">On-device vehicle assistant · answers from this vehicle's own data</p>
+      </div>
+    </div>
+    <span class="pill" title="The assistant only listens on this machine and blocks outbound connections">● offline · local only</span>
+  </header>
+
+  <main>
+    <section class="controls card">
+      <div class="row">
+        <label class="field">
+          <span>Vehicle</span>
+          <select id="source"></select>
+        </label>
+        <div class="field">
+          <span>Who is asking</span>
+          <div class="seg" id="roles" role="radiogroup" aria-label="Role"></div>
+        </div>
+      </div>
+      <form id="ask" class="askrow" autocomplete="off">
+        <input id="q" type="text" maxlength="500" placeholder="Ask about trips, energy, warnings, ADAS events…" aria-label="Question">
+        <button type="submit" id="go">Ask</button>
+      </form>
+      <div class="chips" id="examples" aria-label="Example questions"></div>
+    </section>
+
+    <section class="grid">
+      <article class="card answer" aria-live="polite">
+        <div class="cardhead">
+          <h2>Answer</h2>
+          <span id="tier" class="badge muted">—</span>
+        </div>
+        <div id="answer" class="answertext placeholder">Ask a question to start. Every number in an answer comes from the vehicle's recorded data.</div>
+        <div id="notes" class="notes"></div>
+        <details class="plan">
+          <summary>Query plan</summary>
+          <code id="plan">—</code>
+        </details>
+      </article>
+
+      <aside class="side">
+        <article class="card">
+          <div class="cardhead"><h2>Latency</h2><span id="total" class="big">—</span></div>
+          <div class="budget"><div id="latbar" class="latbar"></div><div class="limit" title="2 s budget for common questions"></div></div>
+          <ul id="stages" class="stages"></ul>
+          <p class="hint">Bar scale: 0–2 s, the budget for common questions.</p>
+        </article>
+        <article class="card">
+          <div class="cardhead"><h2>Evidence</h2></div>
+          <div id="claims"></div>
+          <ul id="evidence" class="evidence"></ul>
+        </article>
+      </aside>
+    </section>
+
+    <section class="card charts" id="chartcard" hidden>
+      <div class="cardhead"><h2>Signals</h2><span class="hint" id="charthint"></span></div>
+      <div id="charts" class="chartgrid"></div>
+    </section>
+  </main>
+
+  <footer>Runs offline on this device. Read-only: the assistant cannot control the vehicle.</footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>
