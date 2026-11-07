@@ -17,6 +17,21 @@ EVIDENCE_PRIORITY = {  # most informative first, per role
 }
 LEVEL_RANK = {lvl: i for i, lvl in enumerate(LEXICON["levels"])}
 
+CHOICE_SYSTEM = (
+    "You explain a vehicle battery diagnosis. Choose items from the lists: first one conclusion, then up to four "
+    "more conclusions or evidence items that best answer the question, most important first. Write only the item "
+    "names, separated by spaces.\n\n"
+    "Example\nQuestion: Why did the warning come on?\nConclusions:\n  pump:consistent = the data is consistent with a "
+    "pump fault\nEvidence:\n  flow = coolant flow 2 vs 5 in comparable sessions\n  outside = outside temperature 30\n"
+    "Answer: pump:consistent flow\n\n"
+)
+
+
+def option_lines(rec: dict, compiled) -> str:
+    claims = "\n".join(f"  {o} = {render(rec, compiled, [o])['text'].split(' (')[0]}" for o in sorted(compiled.claims))
+    ev = "\n".join(f"  {o} = {render(rec, compiled, [o])['text']}" for o in sorted(compiled.evidence))
+    return f"Conclusions:\n{claims}\nEvidence:\n{ev or '  (none)'}\n"
+
 
 def default_choice(record: dict, compiled) -> list[str]:
     claims = sorted(record["claims"], key=lambda c: -c["score"]) or [{"hypothesis": "insufficient"}]
@@ -33,8 +48,6 @@ def default_choice(record: dict, compiled) -> list[str]:
 
 
 def slm_choice(record: dict, compiled, question: str, port: int = 8089, timeout_s: float = 20) -> list[str] | None:
-    from bench.experiment_f import CHOICE_SYSTEM, option_lines
-
     prompt = f"{CHOICE_SYSTEM}Question: {question[:300]}\n{option_lines(record, compiled)}Answer: "
     body = {"prompt": prompt, "grammar": compiled.grammar, "n_predict": 48, "temperature": 0, "cache_prompt": True}
     req = urllib.request.Request(f"http://127.0.0.1:{port}/completion", data=json.dumps(body).encode(),

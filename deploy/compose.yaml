@@ -42,6 +42,8 @@ services:
     command: ["python", "-m", "uvicorn", "ui.app:app", "--host", "0.0.0.0", "--port", "8765"]
     environment:
       DRIVETRACE_DUCKDB_TMP: /tmp/duckdb        # the store is read-only; DuckDB spills to tmpfs
+      DRIVETRACE_SLM_HOST: slm
+      DRIVETRACE_SLM_PORT: "8089"
     volumes:
       - ../data:/app/data:ro
     networks: [internal_only]

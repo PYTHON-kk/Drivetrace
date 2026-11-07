@@ -107,16 +107,77 @@ def test_non_control_braking_question_is_not_refused():
 
 
 @pytest.mark.parametrize("q", [
+    "Could you tell me if my battery charge is lower than last week?",
+    "Please tell me why my car's range is lower this month",
+    "Can you show me when the car was last in park?",
+])
+def test_polite_informational_questions_are_not_refused_as_control(q):
+    r = route(q)
+    assert r is None or r.category != "control"
+
+
+def test_battery_temperature_not_hijacked_by_summary():
+    r = route("How is my battery temperature this week?")
+    assert r is not None
+    assert r.plan.intent in ("trend", "point_lookup")
+    assert r.plan.signal == "battery_temperature"
+    checked, _ = check(r.plan)
+    assert checked.signal == "battery_temperature"
+
+
+def test_average_speed_plans_are_valid():
+    r_cmp = route("Compare my average speed on city and highway trips")
+    assert r_cmp is not None and r_cmp.plan.intent == "compare_groups"
+    assert r_cmp.plan.signal == "speed"
+    checked_cmp, _ = check(r_cmp.plan)
+    assert checked_cmp.signal == "speed" and checked_cmp.group_by == "road_type"
+
+    r_trend = route("Show my average speed over time")
+    assert r_trend is not None and r_trend.plan.intent == "trend"
+    assert r_trend.plan.signal == "speed"
+    checked_trend, _ = check(r_trend.plan)
+    assert checked_trend.signal == "speed"
+
+
+@pytest.mark.parametrize("q", [
     "Why did the battery warning come on last Tuesday?",
     "How many charging sessions on Monday?",
     "Warnings from 2 days ago",
     "Tell me how my efficiency changed since January",
     "last 3 weeks battery warnings",
+    "Last night battery warnings",
+    "efficiency this morning",
+    "Monday this week warnings",
 ])
 def test_unhandled_time_expressions_request_clarification(q):
     r = route(q)
     assert r is not None
     assert r.plan.intent == "unsupported" and r.category == "time_clarify"
+
+
+def test_modal_may_not_treated_as_month():
+    r = route("What may have caused the battery warning?")
+    assert r is not None
+    assert r.plan.intent == "diagnose_event"
+    assert r.category != "time_clarify"
+
+
+def test_speed_limit_is_off_topic():
+    r = route("What is the speed limit here?")
+    assert r is not None
+    assert r.plan.intent == "unsupported" and r.category == "off_topic"
+
+
+@pytest.mark.parametrize("q, exp_intent", [
+    ("Do I have any warnings?", "summary_health"),
+    ("Is there a fault in the car right now?", "summary_health"),
+    ("Is the battery getting hot?", "trend"),
+])
+def test_general_warning_and_fault_questions(q, exp_intent):
+    r = route(q)
+    assert r is not None
+    assert r.plan.intent == exp_intent
+    check(r.plan)
 
 
 def test_aggregation_routes_are_extracted():

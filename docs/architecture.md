@@ -112,7 +112,7 @@ What followed from the measurements:
 | Measure | Result |
 |---|---|
 | Tier 0 routing on 142 same-author questions | 71/71 dev, 71/71 test |
-| Tier 0 routing on provisional independent set | 33/40 fully correct (seed set; not yet 100+ external questions) |
+| Tier 0 routing on regression set (reviewer probes) | 37/40 fully correct (in-sample regression set; external independent set pending) |
 | SLM fallback, fully correct plans | 17-42% |
 | Common-question latency, in-process | p95 15-19 ms |
 | Common-question latency, over HTTP | p95 38-46 ms |
@@ -233,8 +233,8 @@ Common-question p95 rises from 38 ms to 42 ms with ingest running at the same ti
 
 | Criterion (brief, p.3) | Evidence | Key numbers |
 |---|---|---|
-| System architecture | §1, compose deployment, UI | 4 containers; 81 automated tests |
-| AI capability: understanding queries | Tier 0 rules in UI; optional SLM fallback | 142/142 on same-author set; 33/40 on provisional independent set; SLM 17-42% |
+| System architecture | §1, compose deployment, UI | 4 containers; 119 automated tests |
+| AI capability: understanding queries | Tier 0 rules in UI; optional SLM fallback | 142/142 on same-author set; 37/40 on in-sample regression set; SLM 17-42% |
 | AI capability: accuracy | Deterministic answers; ECD | 0 invented numbers with ECD vs 3/17 free text |
 | Data integration | Adapters with catalogue and unit checks | CAN (Zenodo), OBD (VED), simulated BMS/ADAS; SOME/IP, VHAL, QNX designed only |
 | Search and analytics: events, trends, anomalies | Memory layers + executor | p95 15-19 ms |
@@ -246,8 +246,8 @@ Common-question p95 rises from 38 ms to 42 ms with ingest running at the same ti
 ## 11. Limits and next steps
 
 1. **ARM target.** Re-run the benchmarks on a 2-core ARM board under one 2 GB limit, and rebuild the image there (`docs/REPRODUCE.md` §6).
-2. **Real faults.** Diagnostic accuracy is from synthetic scenarios, and the counterfactual model is the generator itself. A calibrated thermal model and real fault data are needed.
-3. **Independent questions.** The routing questions were written by the same author as the rules.
+2. **Real faults & circular diagnosis.** Diagnostic accuracy is from synthetic scenarios, where the counterfactual model is the declared physical model (`models/vehicle_model.py`) that generated the synthetic traces. A calibrated thermal model and physical fault data are required for production automotive sign-off.
+3. **Independent questions.** The original routing questions were written by the same author as the rules. The 40 reviewer probes were compiled into an in-sample regression set (`tests/data/regression_set.yaml`) rather than representing an independent evaluation. True independent validation requires a prospective external set (100+ questions from external participants without rule access) to measure unbiased generalisation.
 4. **Protocols.** SOME/IP, VHAL, QNX and camera adapters are designed, not built. VSS release 6.1 paths still need verification.
 5. **Detection gaps.** Signals misaligned in time are not detected yet (Experiment E).
 6. **Image size.** The image is 763 MB and can be trimmed.

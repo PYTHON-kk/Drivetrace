@@ -6,18 +6,27 @@ accidental or injected outbound call fail loudly even when the OS layer is misco
 """
 
 import ipaddress
+import os
 import socket
 
 _installed = False
 _original_connect = socket.socket.connect
 _original_create_connection = socket.create_connection
-LOOPBACK_NAMES = {"localhost", "localhost.localdomain"}
+LOOPBACK_NAMES = {"localhost", "localhost.localdomain", "127.0.0.1", "::1"}
+
+
+def _allowed_hosts() -> set[str]:
+    hosts = set(LOOPBACK_NAMES)
+    slm_host = os.environ.get("DRIVETRACE_SLM_HOST", "").strip()
+    if slm_host:
+        hosts.add(slm_host)
+    return hosts
 
 
 def _is_loopback(host) -> bool:
     if isinstance(host, bytes):
         host = host.decode()
-    if host in LOOPBACK_NAMES:
+    if host in _allowed_hosts():
         return True
     try:
         return ipaddress.ip_address(host).is_loopback

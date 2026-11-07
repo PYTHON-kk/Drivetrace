@@ -19,6 +19,7 @@ import urllib.request
 
 from bench.diagnosis_eval import LABELS, cases_from
 from diagnosis.engine import Diagnoser
+from ecd.answer import CHOICE_SYSTEM, option_lines
 from ecd.compiler import LEXICON, compile_record, compile_static
 from ecd.renderer import ChoiceError, parse, render, verify_choices, verify_text
 from memory.store import ROOT, Store
@@ -28,14 +29,6 @@ OUT = ROOT / "bench" / "results" / "experiment_f.json"
 PORT = 8089
 MODELS = ["SmolLM2-360M-Instruct-Q4_K_M.gguf", "qwen2.5-0.5b-instruct-q4_k_m.gguf"]
 
-CHOICE_SYSTEM = (
-    "You explain a vehicle battery diagnosis. Choose items from the lists: first one conclusion, then up to four "
-    "more conclusions or evidence items that best answer the question, most important first. Write only the item "
-    "names, separated by spaces.\n\n"
-    "Example\nQuestion: Why did the warning come on?\nConclusions:\n  pump:consistent = the data is consistent with a "
-    "pump fault\nEvidence:\n  flow = coolant flow 2 vs 5 in comparable sessions\n  outside = outside temperature 30\n"
-    "Answer: pump:consistent flow\n\n"
-)
 FREE_SYSTEM = ("You explain a vehicle battery diagnosis to a service technician. Use only the facts given. "
                "Answer in at most three sentences.\n\n")
 
@@ -50,12 +43,6 @@ def complete(prompt: str, grammar: str | None, n_predict: int) -> tuple[str, dic
     with urllib.request.urlopen(req, timeout=120) as r:
         data = json.load(r)
     return data["content"].strip(), data.get("timings", {}), (time.perf_counter() - t0) * 1000
-
-
-def option_lines(rec: dict, compiled) -> str:
-    claims = "\n".join(f"  {o} = {render(rec, compiled, [o])['text'].split(' (')[0]}" for o in sorted(compiled.claims))
-    ev = "\n".join(f"  {o} = {render(rec, compiled, [o])['text']}" for o in sorted(compiled.evidence))
-    return f"Conclusions:\n{claims}\nEvidence:\n{ev or '  (none)'}\n"
 
 
 def facts(rec: dict, compiled) -> str:

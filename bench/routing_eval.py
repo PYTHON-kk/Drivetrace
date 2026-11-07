@@ -13,10 +13,10 @@ import statistics
 import time
 from pathlib import Path
 
-from query.plan import PlanError
+from query.plan import PlanError, check
 from query.planner import ROOT, LocalServer, SlmPlanner
 from query.router import route
-from tests.query_set import load, load_independent, score
+from tests.query_set import load, load_regression, score
 
 OUT = ROOT / "bench" / "results" / "routing_eval.json"
 SLM_RUNS = [("SmolLM2-360M-Instruct-Q4_K_M.gguf", "json"), ("SmolLM2-360M-Instruct-Q4_K_M.gguf", "compact"),
@@ -50,20 +50,34 @@ def evaluate(name: str, plan_fn) -> dict:
     out = {}
     for split in ("dev", "test"):
         out[split] = _evaluate_items(name, split, load(split), plan_fn)
-    out["independent"] = _evaluate_items(name, "independent", load_independent(), plan_fn)
+    out["regression"] = _evaluate_items(name, "regression", load_regression(), plan_fn)
     return out
+
+
+def _tier0_plan(q: str) -> dict | None:
+    r = route(q)
+    if r is None:
+        return None
+    checked, _ = check(r.plan)
+    return checked.as_dict()
+
+
+def _slm_plan(planner: SlmPlanner, q: str) -> dict | None:
+    p = planner.plan(q)
+    checked, _ = check(p)
+    return checked.as_dict()
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--slm", action="store_true")
     args = ap.parse_args()
-    results = {"tier0": evaluate("tier0 rules", lambda q: (r.plan.as_dict() if (r := route(q)) else None))}
+    results = {"tier0": evaluate("tier0 rules", _tier0_plan)}
     if args.slm:
         for model, fmt in SLM_RUNS:
             with LocalServer(ROOT / "models" / model):
                 planner = SlmPlanner(fmt=fmt)
-                results[f"{model}:{fmt}"] = evaluate(f"tier1 {model[:12]} {fmt}", lambda q: planner.plan(q).as_dict())
+                results[f"{model}:{fmt}"] = evaluate(f"tier1 {model[:12]} {fmt}", lambda q: _slm_plan(planner, q))
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(results, indent=2, default=str), encoding="utf-8")
 

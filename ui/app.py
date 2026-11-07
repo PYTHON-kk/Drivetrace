@@ -8,6 +8,7 @@ any vehicle interface - in deployment it runs in its own container with read-onl
 (deploy/compose.yaml).
 """
 
+import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -24,6 +25,7 @@ from diagnosis.window import COOLANT, CURRENT, PUMP_RPM, T_AVG, T_MAX  # noqa: E
 from ecd.compiler import LEXICON  # noqa: E402
 from memory.store import Store  # noqa: E402
 from query.engine import QueryEngine  # noqa: E402
+from query.planner import SlmPlanner  # noqa: E402
 from security.privacy import ROLES, check_role, signal_allowed  # noqa: E402
 
 STATIC = Path(__file__).with_name("static")
@@ -32,7 +34,18 @@ MAX_POINTS = 600
 app = FastAPI(title="DriveTrace", docs_url=None, redoc_url=None, openapi_url=None)
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
 store = Store()
-engine = QueryEngine(store)
+
+slm_host = os.environ.get("DRIVETRACE_SLM_HOST", "127.0.0.1")
+slm_port = int(os.environ.get("DRIVETRACE_SLM_PORT", "8089"))
+slm_env = os.environ.get("DRIVETRACE_SLM", "").strip().lower()
+planner = None
+if slm_env in ("1", "true", "yes", "on") or os.environ.get("DRIVETRACE_SLM_HOST"):
+    planner = SlmPlanner(host=slm_host, port=slm_port)
+else:
+    p = SlmPlanner(host=slm_host, port=slm_port)
+    if p.available():
+        planner = p
+engine = QueryEngine(store, planner=planner)
 
 
 class AskRequest(BaseModel):

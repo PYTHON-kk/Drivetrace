@@ -6,6 +6,7 @@ fallback with its own latency class, not part of the "under 2 s" common-query cl
 """
 
 import json
+import os
 import subprocess
 import time
 import urllib.error
@@ -43,8 +44,9 @@ class PlannerUnavailable(RuntimeError):
 
 
 class SlmPlanner:
-    def __init__(self, port: int = 8089, fmt: str = "json", timeout_s: float = 20.0):
-        self.url = f"http://127.0.0.1:{port}"
+    def __init__(self, host: str | None = None, port: int = 8089, fmt: str = "json", timeout_s: float = 20.0):
+        h = host or os.environ.get("DRIVETRACE_SLM_HOST", "127.0.0.1")
+        self.url = f"http://{h}:{port}"
         self.fmt = fmt
         self.timeout_s = timeout_s
         self.grammar = json_grammar() if fmt == "json" else compact_grammar()

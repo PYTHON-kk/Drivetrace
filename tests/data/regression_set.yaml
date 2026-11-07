@@ -1,5 +1,6 @@
-# Provisional independent-style routing set.
-# NOTE: This is a seed set for A1 wiring and reporting. Replace with 100+ externally authored questions.
+# Regression probe set (40 reviewer questions and edge cases).
+# NOTE: This suite tracks coverage of reviewer probes and edge cases.
+# It is an in-sample regression benchmark (rules tuned alongside these cases), NOT an independent external evaluation.
 
 items:
   - {q: "What's my state of charge?", intent: point_lookup, signal: state_of_charge, aggregate: latest}
@@ -28,9 +29,9 @@ items:
   - {q: "Mera range kitna hai", intent: point_lookup, signal: range}
   - {q: "Meri gaadi ka battery kitna bacha hai", intent: point_lookup, signal: state_of_charge}
   - {q: "aaj battery temp kitna hai", intent: point_lookup, signal: battery_temperature, period: today}
-  - {q: "pichle hafte kitne warning aaye", intent: count_events, period: last_7_days}
+  - {q: "pichle hafte kitne warning aaye", intent: count_events, event_type: battery_overtemp_warning, period: last_7_days}
   - {q: "batery temp now", intent: point_lookup, signal: battery_temperature}
-  - {q: "overheeting warnings this month", intent: count_events, event_type: battery_overtemp_warning, period: this_month}
+  - {q: "overheeting warnings this month", intent: list_events, event_type: battery_overtemp_warning, period: this_month}
   - {q: "averge speed last week", intent: point_lookup, signal: speed, period: last_7_days, aggregate: mean}
   - {q: "What is coolant temperature?", intent: point_lookup}
   - {q: "Is the pump working?", intent: point_lookup}

@@ -23,9 +23,10 @@ htmlcov/
 data/*
 !data/MANIFEST.md
 
-# Large model weights (keep provenance documentation)
+# Large model weights (keep provenance documentation and python source models)
 models/*
 !models/MODELS.md
+!models/*.py
 
 # Local runtime & binaries (llama.cpp Windows/Linux binaries, downloads)
 runtime/

@@ -31,19 +31,21 @@ CONTROL_START = re.compile(r"^(brake|stop|open|close|unlock|lock|accelerate|dece
 CONTROL_OBJECT = re.compile(r"\b(door|doors|window|windows|ac|air ?con|air ?conditioning|brake|brakes|"
                             r"light|lights|headlight|headlights|horn|wiper|wipers|heater|charging|charge|car)\b")
 CONTROL_SAFE_READ = _rx(r"\bhow often did i brake\b", r"\bbrake warning\b", r"\bdid the brake warning\b")
-POLITE_PREFIX = re.compile(r"^(can you|could you|would you|please|i want you to|can u|plz)\s+")
+POLITE_PREFIX = re.compile(r"^(can you|could you|would you|will you|i want you to|i need you to|you must|you need to|"
+                           r"can u|plz|please|kindly|just|now|quickly)\s+", re.I)
 INJECTION = _rx(r"ignore (all |any |the )?(previous |prior )?(instructions|rules)", r"system prompt",
                 r"developer mode", r"drop table", r"\bselect \S+ from\b", r";\s*--", r"forget (the|all|your) rules",
                 r"disable (all )?safety", r"\bauthori[sz]e\b", r"raw can", r"home address", r"\bsend\b.*\b(email|data)\b")
 OFF_TOPIC = _rx(r"\bweather\b", r"\bjoke\b", r"\bfootball\b", r"\bfootball match\b", r"\bmatch score\b",
-                r"book a table", r"capital of", r"\bplay\b.*\bmusic\b", r"^navigate\b")
+                r"book a table", r"capital of", r"\bplay\b.*\bmusic\b", r"^navigate\b", r"\bspeed limit\b")
 
 SOC = _rx(r"state of charge", r"battery level", r"charge level", r"\bsoc\b", r"how much charge", r"charge (is )?left",
-          r"battery percentage")
+          r"battery percentage", r"battery charge\b", r"battery\b.*\b(left|remaining)\b")
 RANGE = _rx(r"\brange\b", r"kilomet\w* per charge", r"\bkm per charge", r"miles per charge")
 FUEL = _rx(r"\bfuel\b", r"mileage", r"\bmpg\b", r"\beconomy\b", r"\blit(re|er)s?\b", r"per 100 ?km", r"petrol")
 ENERGY = _rx(r"\benergy\b", r"efficien", r"consumption", r"\bkwh\b", r"wh per km", r"wh/km")
-BATT_TEMP = _rx(r"battery (temp|temperature)\b", r"battery temp\b", r"\bhotter\b", r"battery .*\brunning hot")
+BATT_TEMP = _rx(r"battery (temp|temperature)\b", r"battery temp\b", r"\bhotter\b", r"battery .*\brunning hot",
+                r"battery .*\bgetting (hot|hotter|warm)\b", r"\bgetting hot\b")
 SPEED = _rx(r"\bspeed\b", r"how fast", r"\bfaster\b", r"\bslower\b")
 
 ADAS = _rx(r"\badas\b", r"lane (assist|keep\w*)", r"cruise( control)?", r"autopilot", r"driver assist\w*")
@@ -54,8 +56,8 @@ CHARGING = re.compile(r"\bcharg(e|es|ed|ing)\b|plugged in")
 WARNING_WORD = re.compile(r"\b(warning|alert)s?\b")
 
 ROAD = _rx(r"\bcity\b", r"\btown\b", r"\burban\b", r"\bhighway\b", r"\bmotorway\b", r"\bfreeway\b")
-DIAGNOSE = _rx(r"\bwhy did\b", r"what caused", r"what happened (right )?before", r"\bexplain\b", r"what led up to",
-               r"went wrong")
+DIAGNOSE = _rx(r"\bwhy did\b", r"what (may have |could have )?caused", r"what happened (right )?before",
+               r"\bexplain\b", r"what led up to", r"went wrong")
 COUNT = _rx(r"\bhow many\b", r"\bhow often\b", r"\bcount\b", r"number of")
 AGG_MEAN = _rx(r"\baverage\b", r"\bmean\b")
 AGG_MAX = _rx(r"\bmax\b", r"\bmaximum\b", r"\bhighest\b", r"\bpeak\b", r"\bhottest\b")
@@ -66,27 +68,36 @@ MAX_DROP = _rx(r"(largest|biggest|sharpest|greatest) (\w+ )?(drop|decline|fall|j
 COMPARE = _rx(r"\bwhy\b", r"compared? (to|with)", r"\bthan (last|the)\b", r"\bhigher\b", r"\blower\b",
               r"more energy", r"\bfewer\b", r"worse lately", r"went down", r"gone up", r"what changed",
               r"(weeks?|month|days) before", r"\breduced\b", r"got worse")
-POINT = _rx(r"\bwhat (is|was|s)\b", r"\bcurrent\b", r"right now", r"\bnow\b", r"how much .*\bleft\b", r"how fast was",
+POINT = _rx(r"\bwhat (is|was|s)\b", r"\bcurrent\b", r"right now", r"\bnow\b", r"\blatest\b", r"how much .*\bleft\b", r"how fast was",
             r"at the last", r"when i last", r"\blast trip\b", r"what range did", r"\bwhats\b")
 TREND = _rx(r"\btrend", r"over time", r"\bhow has\b", r"\bhow is\b", r"developed", r"day by day", r"\bplot\b",
-            r"going up", r"getting (worse|better)")
-SUMMARY = _rx(r"\bany faults\b", r"\banything wrong\b", r"\bsummary\b", r"\bhows my battery doing\b",
-              r"\bhow is my battery doing\b", r"\bhow is my battery\b")
+            r"going up", r"getting (worse|better|hot|hotter|warm)")
+SUMMARY = _rx(r"\bany faults?\b", r"\banything wrong\b", r"\b(do i have|are there) (any )?warnings?\b",
+              r"\bany warnings?\b", r"\b(is there )?(a |any )?faults?\b", r"\bsummary\b",
+              r"\bhow( is|s) my battery( doing)?$")
 
+MONTH_NAME = (r"(january|february|march|april|may|june|july|august|september|october|november|december|"
+              r"jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)")
 TIME_UNSUPPORTED = _rx(
     r"\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b",
-    r"\b(january|february|march|april|may|june|july|august|september|october|november|december)\b",
+    r"\b(last night|this morning|this afternoon|this evening|yesterday morning|yesterday evening|yesterday afternoon)\b",
+    r"\b(in|since|last|this|during|from)\s+" + MONTH_NAME + r"\b",
+    MONTH_NAME + r"\s+\d{1,2}(st|nd|rd|th)?\b",
+    r"\b\d{1,2}(st|nd|rd|th)?\s+(of\s+)?" + MONTH_NAME + r"\b",
     r"\b\d{4}-\d{1,2}-\d{1,2}\b",
-    r"\b\d{1,2}\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)\b",
     r"\bsince\s+\S+",
     r"\b\d+\s+(day|days|week|weeks|month|months)\s+ago\b",
-    r"\blast\s+\d+\s+(day|days|week|weeks|month|months)\b",
     r"\bfrom\s+\d+\s+(day|days|week|weeks|month|months)\s+ago\b",
+    r"\blast\s+(?!7\b|14\b|two\b|2\b)\d+\s+(day|days|week|weeks)\b",
+    r"\blast\s+\d+\s+months\b",
 )
 
 HINGLISH = {
     "kitna": "how much",
     "kitni": "how much",
+    "kitne": "how many",
+    "bacha": "left",
+    "bachi": "left",
     "batti": "battery",
     "gaadi": "vehicle",
     "aaj": "today",
@@ -105,8 +116,8 @@ TYPO_VOCAB = {
     "whats",
     "what", "is", "was", "how", "much", "charge", "battery", "temperature", "speed", "range", "fuel",
     "energy", "consumption", "average", "mean", "max", "maximum", "min", "minimum", "highest", "lowest",
-    "charging", "warning", "overheating", "adas", "lane", "assist", "disengage", "today", "yesterday",
-    "week", "month", "last", "this", "trip", "duration", "summary", "faults", "efficiency", "why",
+    "charging", "warning", "warnings", "overheating", "adas", "lane", "assist", "disengage", "today", "yesterday",
+    "week", "month", "last", "this", "trip", "duration", "summary", "fault", "faults", "efficiency", "why",
     "did", "come", "on", "from", "since", "days", "ago", "sessions", "state", "of", "coolant", "pump",
     "working", "tyre", "tire", "pressure", "match", "logged", "gps", "mera", "hai", "kal", "vehicle",
 }
@@ -174,24 +185,22 @@ def _is_control(q: str) -> bool:
     if CONTROL_SAFE_READ.search(q):
         return False
     text = q
-    had_polite = False
     while True:
         stripped = POLITE_PREFIX.sub("", text).strip()
         if stripped == text:
             break
-        had_polite = True
         text = stripped
     if CONTROL_START.search(text):
-        return True
-    if had_polite and CONTROL.search(text) and CONTROL_OBJECT.search(text):
-        return True
-    if re.search(r"\b(can you|could you|would you|please|i want you to)\b", q) and CONTROL.search(q) and CONTROL_OBJECT.search(q):
         return True
     return False
 
 
 def _needs_time_clarification(q: str) -> bool:
     if "ambiguous_kal" in q:
+        return True
+    if re.search(r"\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b", q):
+        return True
+    if re.search(r"\b(last night|this morning|this afternoon|this evening|yesterday morning|yesterday evening|yesterday afternoon)\b", q):
         return True
     if re.search(r"\b(today|yesterday|this month|last month|last week|past week|this week|"
                  r"last 7 days|last 14 days|two weeks|2 weeks|fortnight)\b", q):
@@ -232,7 +241,7 @@ def event_of(q: str) -> str:
         return "battery_overtemp_warning"
     if CHARGING.search(masked):
         return "charging"
-    if WARNING_WORD.search(masked) and ("battery" in masked or "temperature" in masked or "last warning" in masked):
+    if WARNING_WORD.search(masked) and ("battery" in masked or "temperature" in masked or "last warning" in masked or COUNT.search(masked)):
         return "battery_overtemp_warning"
     return "none"
 
@@ -257,22 +266,22 @@ def route(question: str) -> Route | None:
     if SUMMARY.search(q):
         return Route(Plan("summary_health", period=period), "summary_health")
     if DIAGNOSE.search(q) and event != "none":
-        return Route(Plan("diagnose_event", period=period, event_type=event, aggregate=aggregate), "diagnose")
+        return Route(Plan("diagnose_event", period=period, event_type=event), "diagnose")
     if ROAD.search(q) and (signal != "none" or "efficien" in q):
         return Route(Plan("compare_groups", signal=signal if signal != "none" else "energy_consumption",
-                          period=period, group_by="road_type", aggregate=aggregate), "compare_groups")
+                          period=period, group_by="road_type"), "compare_groups")
     if COUNT.search(q) and event != "none":
-        return Route(Plan("count_events", period=period, event_type=event, aggregate=aggregate), "count")
+        return Route(Plan("count_events", period=period, event_type=event), "count")
     if MAX_DROP.search(q) and signal in ("energy_consumption", "fuel_consumption", "range"):
-        return Route(Plan("max_drop", signal=signal, period=period, group_by="day", aggregate=aggregate), "max_drop")
+        return Route(Plan("max_drop", signal=signal, period=period, group_by="day"), "max_drop")
     if COMPARE.search(q) and signal != "none" and event == "none":
-        return Route(Plan("compare_periods", signal=signal, period=period, aggregate=aggregate), "compare_periods")
+        return Route(Plan("compare_periods", signal=signal, period=period), "compare_periods")
     if aggregate == "duration" and event == "charging":
         return Route(Plan("point_lookup", period=period, event_type=event, aggregate=aggregate), "point_lookup")
     if POINT.search(q) and signal != "none":
         return Route(Plan("point_lookup", signal=signal, period=period, event_type=event, aggregate=aggregate), "point_lookup")
     if TREND.search(q) and signal != "none":
-        return Route(Plan("trend", signal=signal, period=period, group_by="day", aggregate=aggregate), "trend")
+        return Route(Plan("trend", signal=signal, period=period, group_by="day"), "trend")
     if signal != "none" and aggregate in ("mean", "max", "min"):
         return Route(Plan("point_lookup", signal=signal, period=period, event_type=event, aggregate=aggregate), "point_lookup")
     if "match" in q and signal != "none":
@@ -280,5 +289,5 @@ def route(question: str) -> Route | None:
     if signal != "none" and "how much" in q:
         return Route(Plan("point_lookup", signal=signal, period=period, event_type=event, aggregate=aggregate), "point_lookup")
     if event != "none":
-        return Route(Plan("list_events", period=period, event_type=event, aggregate=aggregate), "list_events")
+        return Route(Plan("list_events", period=period, event_type=event), "list_events")
     return None

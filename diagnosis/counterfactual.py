@@ -21,10 +21,10 @@ import numpy as np
 import pandas as pd
 
 from diagnosis.window import AMBIENT, CURRENT, PUMP_CMD, PUMP_RPM, SOC, T_AVG
-from sim.vehicle import VehicleParams, VehicleSim, VehicleState, resistance
+from models.vehicle_model import VehicleParams, VehicleSim, VehicleState, resistance
 
 MAX_RMSE_C = 1.0
-MODEL = "sim/vehicle.py lumped thermal model (same model that generated the synthetic data)"
+MODEL = "models/vehicle_model.py declared lumped thermal model"
 
 
 @dataclass
