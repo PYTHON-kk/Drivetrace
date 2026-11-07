@@ -43,3 +43,4 @@ items:
   - {q: "latest battery temperature", intent: point_lookup, signal: battery_temperature}
   - {q: "highest battery temp today", intent: point_lookup, signal: battery_temperature, period: today, aggregate: max}
   - {q: "lowest battery temp today", intent: point_lookup, signal: battery_temperature, period: today, aggregate: min}
+

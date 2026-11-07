@@ -265,3 +265,4 @@ class VehicleSim:
         res.true = {"temp_c": s.temp_c, "heat_w": heat, "q_cool_w": q_cool, "i_dis": i_dis,
                     "power_out_w": power_out, "flow": flow}
         return res
+
