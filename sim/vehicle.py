@@ -3,7 +3,7 @@
 Re-exports the declared vehicle physical model from models/vehicle_model.py for the simulator harness.
 """
 
-from models.vehicle_model import (  # noqa: F401
+from physics.thermal_model import (  # noqa: F401
     G,
     AIR_DENSITY,
     VehicleParams,

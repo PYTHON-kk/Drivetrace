@@ -246,7 +246,7 @@ Common-question p95 rises from 38 ms to 42 ms with ingest running at the same ti
 ## 11. Limits and next steps
 
 1. **ARM target.** Re-run the benchmarks on a 2-core ARM board under one 2 GB limit, and rebuild the image there (`docs/REPRODUCE.md` §6).
-2. **Real faults & circular diagnosis.** Diagnostic accuracy is from synthetic scenarios, where the counterfactual model is the declared physical model (`models/vehicle_model.py`) that generated the synthetic traces. A calibrated thermal model and physical fault data are required for production automotive sign-off.
+2. **Real faults & circular diagnosis.** Diagnostic accuracy is from synthetic scenarios, where the counterfactual model is the declared physical model (`physics/thermal_model.py`) that generated the synthetic traces. A calibrated thermal model and physical fault data are required for production automotive sign-off.
 3. **Independent questions.** The original routing questions were written by the same author as the rules. The 40 reviewer probes were compiled into an in-sample regression set (`tests/data/regression_set.yaml`) rather than representing an independent evaluation. True independent validation requires a prospective external set (100+ questions from external participants without rule access) to measure unbiased generalisation.
 4. **Protocols.** SOME/IP, VHAL, QNX and camera adapters are designed, not built. VSS release 6.1 paths still need verification.
 5. **Detection gaps.** Signals misaligned in time are not detected yet (Experiment E).

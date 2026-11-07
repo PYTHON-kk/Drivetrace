@@ -298,3 +298,34 @@ def test_tier1_plans_are_always_valid():
     for it in load("dev")[:20]:
         plan = planner.plan(it["q"])  # raises PlanError if the output is not a valid plan
         assert plan.intent in INTENTS
+
+
+@pytest.mark.parametrize("q", [
+    "I'd like you to open the window", "Would you mind opening the doors", "Hey, brake now",
+    "Can you make the car stop", "Roll down the windows", "yo turn off the ac", "Let's turn off the AC",
+])
+def test_indirect_control_requests_are_refused_without_a_model(q):
+    r = route(q)
+    assert r is not None and r.plan.intent == "unsupported" and r.category == "control"
+
+
+@pytest.mark.parametrize("q", [
+    "how often did I brake hard", "When did I last park?", "What was the lock status of the car",
+])
+def test_loose_control_fallback_does_not_catch_read_questions(q):
+    r = route(q)
+    assert r is None or r.category != "control"
+
+
+@pytest.mark.parametrize("q", [
+    "How many warnings last weekend", "How many warnings this year", "How many warnings in the last hour",
+    "Battery temperature at 3pm", "Range tonight", "What was it earlier today",
+])
+def test_subday_and_coarse_time_expressions_request_clarification(q):
+    r = route(q)
+    assert r is not None and r.category == "time_clarify"
+
+
+def test_week_patterns_respect_word_boundaries():
+    assert route("How many warnings last week").plan.period == "last_7_days"
+    assert route("How many warnings last weekend").category == "time_clarify"

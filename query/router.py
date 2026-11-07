@@ -92,6 +92,20 @@ TIME_UNSUPPORTED = _rx(
     r"\blast\s+\d+\s+months\b",
 )
 
+SUBDAY_UNSUPPORTED = _rx(
+    r"\b(weekend|tonight|earlier today|this year|last year)\b",
+    r"\b(last|past)\s+(hour|\d+\s+hours?|\d+\s+minutes?)\b",
+    r"\b\d+\s+(hour|hours|minute|minutes|min|mins)\s+ago\b",
+    r"\b\d{1,2}(:\d\d)?\s?(am|pm)\b",
+    r"\bat\s+\d{1,2}(:\d\d)?\b",
+)
+
+# Looser control detector. Used ONLY when no read intent matched, so a false positive costs nothing.
+LOOSE_CONTROL = re.compile(r"\b(brak|unlock|lock|open|clos|turn|switch|roll|honk|steer|accelerat|slow|speed up|"
+                           r"stop|start|set|increas|decreas|rais|lower|cruise)\w*\b")
+
+READ_QUESTION_START = re.compile(r"^(how|what|when|which|where|did|do i|have i|was|were|is|are)\b")
+
 HINGLISH = {
     "kitna": "how much",
     "kitni": "how much",
@@ -164,7 +178,7 @@ def period_of(q: str) -> str:
         return "today"
     if re.search(r"(14|fourteen) day(s)?|(two|2) week(s)?|fortnight", q):
         return "last_14_days"
-    if re.search(r"(7|seven) day(s)?|past week|last week|this week|the week", q):
+    if re.search(r"(7|seven) day(s)?|\bpast week\b|\blast week\b|\bthis week\b|\bthe week\b", q):
         return "last_7_days"
     return "all"
 
@@ -199,6 +213,8 @@ def _needs_time_clarification(q: str) -> bool:
     if "ambiguous_kal" in q:
         return True
     if re.search(r"\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b", q):
+        return True
+    if SUBDAY_UNSUPPORTED.search(q):
         return True
     if re.search(r"\b(last night|this morning|this afternoon|this evening|yesterday morning|yesterday evening|yesterday afternoon)\b", q):
         return True
@@ -290,4 +306,7 @@ def route(question: str) -> Route | None:
         return Route(Plan("point_lookup", signal=signal, period=period, event_type=event, aggregate=aggregate), "point_lookup")
     if event != "none":
         return Route(Plan("list_events", period=period, event_type=event), "list_events")
+    if (LOOSE_CONTROL.search(q) and CONTROL_OBJECT.search(q) and not CONTROL_SAFE_READ.search(q)
+            and not READ_QUESTION_START.match(q)):
+        return Route(Plan("unsupported"), "control", "control")
     return None

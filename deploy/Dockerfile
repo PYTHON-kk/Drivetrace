@@ -9,7 +9,7 @@ COPY deploy/requirements-runtime.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt && rm /tmp/requirements.txt
 
 COPY schema/ schema/
-COPY sim/ sim/
+COPY physics/ physics/
 COPY adapters/ adapters/
 COPY memory/ memory/
 COPY ingest/ ingest/
