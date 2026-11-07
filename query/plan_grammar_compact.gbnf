@@ -5,9 +5,9 @@
 
 # Compact form: the five values, space-separated; code adds the keys.
 
-root ::= intent " " signal " " period " " groupby " " eventtype
+root ::= intent " " signal " " period " " groupby " " eventtype " " aggregate
 
-intent ::= "list_events" | "count_events" | "max_drop" | "trend" | "compare_periods" | "compare_groups" | "point_lookup" | "diagnose_event" | "unsupported"
+intent ::= "list_events" | "count_events" | "max_drop" | "trend" | "compare_periods" | "compare_groups" | "point_lookup" | "diagnose_event" | "summary_health" | "unsupported"
 
 signal ::= "energy_consumption" | "range" | "battery_temperature" | "speed" | "fuel_consumption" | "state_of_charge" | "none"
 
@@ -16,3 +16,5 @@ period ::= "today" | "yesterday" | "last_7_days" | "last_14_days" | "this_month"
 groupby ::= "none" | "road_type" | "day" | "trip"
 
 eventtype ::= "none" | "adas_disengaged" | "battery_overtemp_warning" | "charging" | "warning_lamp"
+
+aggregate ::= "latest" | "mean" | "max" | "min" | "duration" | "count"

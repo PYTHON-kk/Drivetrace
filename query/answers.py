@@ -13,6 +13,8 @@ REFUSALS = {
     "control": "I can only read vehicle data. I can't control the vehicle.",
     "injection": "I can't do that. I only answer questions about this vehicle's recorded data.",
     "off_topic": "I can only answer questions about this vehicle's data, such as trips, energy use, warnings and ADAS events.",
+    "time_clarify": "I can answer for today, yesterday, the last 7 or 14 days, and this or last month. Which window do you mean?",
+    "tyre_not_recorded": "This vehicle's data has no tyre signals, so I can't assess tyre pressure.",
     "not_understood": "I didn't understand that question. You can ask, for example, \"How many overheating warnings this month?\" "
                       "or \"Compare energy consumption between city and highway driving.\"",
 }
@@ -160,7 +162,20 @@ def render(plan: Plan, r: Result, role: str = "service") -> str:
         if not d["found"]:
             if d["reason"] == "no_event":
                 return f"There is no {EVENT_LABELS[plan.event_type]} {w}."
+            if d["reason"] == "missing_charging_stop":
+                return "I found the charging start, but not its stop event, so I can't compute that yet."
             return "No recent value is recorded for that."
+        if d["kind"] == "aggregate":
+            name = {"mean": "Average", "max": "Maximum", "min": "Minimum", "duration": "Duration",
+                    "count": "Count"}.get(d["aggregate"], d["aggregate"].capitalize())
+            if d["aggregate"] == "duration":
+                return (f"{name} of the last charging session: {num(d['value'], d['unit'])} "
+                        f"({when(d['start_local_time'])} to {when(d['end_local_time'])}).")
+            if "window" in d:
+                ws, we = d["window"]
+                return (f"{name} {d['label']} {w}: {num(d['value'], d['unit'])} "
+                        f"(window {when(ws)} to {when(we)}).")
+            return f"{name} {d['label']} {w}: {num(d['value'], d['unit'])}."
         if d["kind"] == "trip":
             at = f" (the trip containing the {EVENT_LABELS[plan.event_type]})" if d["event"] else ""
             return (f"Trip {d['trip_no']} on {when(d['local_time'])}{at}: {num(d['km'], 'km')}, "
@@ -194,5 +209,17 @@ def render(plan: Plan, r: Result, role: str = "service") -> str:
         else:
             lines.append("Diagnosis: " + ecd_answer(rec, role)["text"])
         return "\n".join(lines)
+
+    if i == "summary_health":
+        total = d["warnings"] + d["lamps"] + d["adas"]
+        if total == 0:
+            return f"No warnings, warning lamps or ADAS disengagements {w}."
+        lines = [f"Summary {w}: {d['warnings']} battery warnings, {d['lamps']} warning-lamp events, "
+                 f"{d['adas']} ADAS disengagements."]
+        if d.get("latest_warning"):
+            lw = d["latest_warning"]
+            lines.append(f"Most recent warning: {lw['event_type'].replace('_', ' ').lower()} at {when(lw['ts'])}. "
+                         "You can ask 'why did that warning come on?' for diagnosis.")
+        return " ".join(lines)
 
     return render_refusal("not_understood")

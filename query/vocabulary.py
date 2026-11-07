@@ -4,16 +4,18 @@ The GBNF grammars (query/plan_grammar*.gbnf), the validator, the executor and th
 lists. Regenerate the grammars after editing: python -m query.grammar
 """
 
-KEYS = ["intent", "signal", "period", "group_by", "event_type"]
+KEYS = ["intent", "signal", "period", "group_by", "event_type", "aggregate"]
 
 INTENTS = ["list_events", "count_events", "max_drop", "trend", "compare_periods", "compare_groups",
-           "point_lookup", "diagnose_event", "unsupported"]
+           "point_lookup", "diagnose_event", "summary_health", "unsupported"]
 SIGNALS = ["energy_consumption", "range", "battery_temperature", "speed", "fuel_consumption", "state_of_charge", "none"]
 PERIODS = ["today", "yesterday", "last_7_days", "last_14_days", "this_month", "last_month", "all"]
 GROUP_BY = ["none", "road_type", "day", "trip"]
 EVENT_TYPES = ["none", "adas_disengaged", "battery_overtemp_warning", "charging", "warning_lamp"]
+AGGREGATES = ["latest", "mean", "max", "min", "duration", "count"]
 
-VALUES = {"intent": INTENTS, "signal": SIGNALS, "period": PERIODS, "group_by": GROUP_BY, "event_type": EVENT_TYPES}
+VALUES = {"intent": INTENTS, "signal": SIGNALS, "period": PERIODS, "group_by": GROUP_BY,
+          "event_type": EVENT_TYPES, "aggregate": AGGREGATES}
 
 # Plan event_type -> canonical event type in the event index
 EVENT_TYPE_MAP = {

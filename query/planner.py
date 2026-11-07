@@ -26,15 +26,15 @@ SYSTEM = (
 )
 # One example per intent; none is a test-set question. Kept identical to bench/plan_latency.py.
 EXAMPLES = [
-    ("Show all ADAS disengagement events from yesterday.", ["list_events", "none", "yesterday", "none", "adas_disengaged"]),
-    ("How many battery overheating warnings did I get this month?", ["count_events", "none", "this_month", "none", "battery_overtemp_warning"]),
-    ("When did my efficiency drop the most this month?", ["max_drop", "energy_consumption", "this_month", "day", "none"]),
-    ("How has my state of charge on arrival changed over the last week?", ["trend", "state_of_charge", "last_7_days", "day", "none"]),
-    ("Is my range lower this month than last month?", ["compare_periods", "range", "this_month", "none", "none"]),
-    ("Compare energy consumption between city and highway driving.", ["compare_groups", "energy_consumption", "all", "road_type", "none"]),
-    ("What was my state of charge when I last started charging?", ["point_lookup", "state_of_charge", "all", "none", "charging"]),
-    ("Why did the warning lamp come on today?", ["diagnose_event", "none", "today", "none", "warning_lamp"]),
-    ("Open the windows.", ["unsupported", "none", "all", "none", "none"]),
+    ("Show all ADAS disengagement events from yesterday.", ["list_events", "none", "yesterday", "none", "adas_disengaged", "latest"]),
+    ("How many battery overheating warnings did I get this month?", ["count_events", "none", "this_month", "none", "battery_overtemp_warning", "latest"]),
+    ("When did my efficiency drop the most this month?", ["max_drop", "energy_consumption", "this_month", "day", "none", "latest"]),
+    ("How has my state of charge on arrival changed over the last week?", ["trend", "state_of_charge", "last_7_days", "day", "none", "latest"]),
+    ("Is my range lower this month than last month?", ["compare_periods", "range", "this_month", "none", "none", "latest"]),
+    ("Compare energy consumption between city and highway driving.", ["compare_groups", "energy_consumption", "all", "road_type", "none", "latest"]),
+    ("What was my state of charge when I last started charging?", ["point_lookup", "state_of_charge", "all", "none", "charging", "latest"]),
+    ("Why did the warning lamp come on today?", ["diagnose_event", "none", "today", "none", "warning_lamp", "latest"]),
+    ("Open the windows.", ["unsupported", "none", "all", "none", "none", "latest"]),
 ]
 
 

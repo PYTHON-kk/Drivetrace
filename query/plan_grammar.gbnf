@@ -3,9 +3,9 @@
 # A grammar-valid plan can still have the wrong intent: plans are validated again before execution.
 # (llama.cpp GBNF does not allow a rule to continue on a line that starts with "|".)
 
-root ::= "{\"intent\": " intent ", \"signal\": " signal ", \"period\": " period ", \"group_by\": " groupby ", \"event_type\": " eventtype "}"
+root ::= "{\"intent\": " intent ", \"signal\": " signal ", \"period\": " period ", \"group_by\": " groupby ", \"event_type\": " eventtype ", \"aggregate\": " aggregate "}"
 
-intent ::= "\"list_events\"" | "\"count_events\"" | "\"max_drop\"" | "\"trend\"" | "\"compare_periods\"" | "\"compare_groups\"" | "\"point_lookup\"" | "\"diagnose_event\"" | "\"unsupported\""
+intent ::= "\"list_events\"" | "\"count_events\"" | "\"max_drop\"" | "\"trend\"" | "\"compare_periods\"" | "\"compare_groups\"" | "\"point_lookup\"" | "\"diagnose_event\"" | "\"summary_health\"" | "\"unsupported\""
 
 signal ::= "\"energy_consumption\"" | "\"range\"" | "\"battery_temperature\"" | "\"speed\"" | "\"fuel_consumption\"" | "\"state_of_charge\"" | "\"none\""
 
@@ -14,3 +14,5 @@ period ::= "\"today\"" | "\"yesterday\"" | "\"last_7_days\"" | "\"last_14_days\"
 groupby ::= "\"none\"" | "\"road_type\"" | "\"day\"" | "\"trip\""
 
 eventtype ::= "\"none\"" | "\"adas_disengaged\"" | "\"battery_overtemp_warning\"" | "\"charging\"" | "\"warning_lamp\""
+
+aggregate ::= "\"latest\"" | "\"mean\"" | "\"max\"" | "\"min\"" | "\"duration\"" | "\"count\""

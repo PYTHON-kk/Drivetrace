@@ -74,6 +74,91 @@ def test_every_control_and_injection_request_is_refused():
             assert r.category == it["category"], it["q"]
 
 
+@pytest.mark.parametrize("q, intent, signal", [
+    ("What's my state of charge?", "point_lookup", "state_of_charge"),
+    ("Whats my range", "point_lookup", "range"),
+    ("How's my battery?", "summary_health", "none"),
+    ("What's the battery temperature?", "point_lookup", "battery_temperature"),
+])
+def test_apostrophes_and_contractions_route(q, intent, signal):
+    r = route(q)
+    assert r is not None
+    assert r.plan.intent == intent
+    assert r.plan.signal == signal
+
+
+@pytest.mark.parametrize("q", [
+    "Can you please brake now",
+    "Could you unlock the doors",
+    "I want you to turn off the AC",
+    "turn the heater up",
+    "please lock the car",
+    "start charging now",
+])
+def test_polite_control_requests_are_refused(q):
+    r = route(q)
+    assert r is not None
+    assert r.plan.intent == "unsupported" and r.category == "control"
+
+
+def test_non_control_braking_question_is_not_refused():
+    r = route("how often did I brake hard")
+    assert r is None or r.category != "control"
+
+
+@pytest.mark.parametrize("q", [
+    "Why did the battery warning come on last Tuesday?",
+    "How many charging sessions on Monday?",
+    "Warnings from 2 days ago",
+    "Tell me how my efficiency changed since January",
+    "last 3 weeks battery warnings",
+])
+def test_unhandled_time_expressions_request_clarification(q):
+    r = route(q)
+    assert r is not None
+    assert r.plan.intent == "unsupported" and r.category == "time_clarify"
+
+
+def test_aggregation_routes_are_extracted():
+    assert route("What is the average speed today?").plan.aggregate == "mean"
+    hot = route("Max battery temperature during charging yesterday").plan
+    assert (hot.intent, hot.signal, hot.event_type, hot.aggregate) == (
+        "point_lookup", "battery_temperature", "charging", "max")
+    longq = route("How long did my last charge take?").plan
+    assert (longq.intent, longq.event_type, longq.aggregate) == ("point_lookup", "charging", "duration")
+
+
+def test_match_is_not_off_topic_anymore():
+    r = route("Does the logged speed match the GPS speed?")
+    assert r is not None and r.category != "off_topic"
+
+
+def test_tyre_pressure_gets_no_signal_message_route():
+    r = route("Is my tyre pressure okay?")
+    assert r is not None
+    assert r.plan.intent == "unsupported" and r.category == "tyre_not_recorded"
+
+
+@pytest.mark.parametrize("q", ["Any faults?", "Is there anything wrong with my car?", "Give me a summary of last week"])
+def test_general_health_summary_intent(q):
+    r = route(q)
+    assert r is not None and r.plan.intent == "summary_health"
+
+
+@pytest.mark.parametrize("q, signal", [
+    ("Mera range kitna hai", "range"),
+    ("batery temp now", "battery_temperature"),
+    ("overheeting warnings this month", "none"),
+])
+def test_hinglish_and_typos_route_minimum_viable(q, signal):
+    r = route(q)
+    assert r is not None
+    if signal == "none":
+        assert r.plan.intent in ("list_events", "count_events", "diagnose_event")
+    else:
+        assert r.plan.signal == signal
+
+
 # ---------------------------------------------------------------- relative time
 def test_yesterday_across_the_dst_change_is_25_hours():
     now = datetime(2026, 10, 26, 10, 0, tzinfo=timezone.utc)  # Europe/Berlin left summer time on 25 Oct

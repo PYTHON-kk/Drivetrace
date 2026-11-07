@@ -20,6 +20,7 @@ class Plan:
     period: str = "all"
     group_by: str = "none"
     event_type: str = "none"
+    aggregate: str = "latest"
 
     def as_dict(self) -> dict:
         return asdict(self)
@@ -50,8 +51,14 @@ def check(plan: Plan) -> tuple[Plan, list[str]]:
 
     if i in ("list_events", "count_events", "diagnose_event") and plan.event_type == "none":
         raise PlanError(f"{i} needs an event type")
-    if i in ("trend", "compare_periods", "compare_groups", "point_lookup", "max_drop") and plan.signal == "none":
+    if i in ("trend", "compare_periods", "compare_groups", "max_drop") and plan.signal == "none":
         raise PlanError(f"{i} needs a signal")
+    if i == "point_lookup" and plan.signal == "none" and plan.aggregate not in ("duration", "count"):
+        raise PlanError("point_lookup needs a signal")
+    if i != "point_lookup" and plan.aggregate != "latest":
+        raise PlanError(f"{i} does not support aggregate={plan.aggregate!r}")
+    if i == "point_lookup" and plan.aggregate in ("duration", "count") and plan.event_type != "charging":
+        raise PlanError("duration and count are supported only for charging events")
     if i == "max_drop" and plan.signal not in CONSUMPTION_SIGNALS | {"range"}:
         raise PlanError("max_drop is defined for consumption and range only")
     if i == "compare_groups":
@@ -64,5 +71,5 @@ def check(plan: Plan) -> tuple[Plan, list[str]]:
         p["period"] = "last_14_days"
         notes.append("compared the last 14 days with the 14 days before")
     if i == "unsupported":
-        p.update(signal="none", period="all", group_by="none", event_type="none")
+        p.update(signal="none", period="all", group_by="none", event_type="none", aggregate="latest")
     return Plan(**p), notes

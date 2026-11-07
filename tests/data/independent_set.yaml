@@ -1,0 +1,44 @@
+# Provisional independent-style routing set.
+# NOTE: This is a seed set for A1 wiring and reporting. Replace with 100+ externally authored questions.
+
+items:
+  - {q: "What's my state of charge?", intent: point_lookup, signal: state_of_charge, aggregate: latest}
+  - {q: "Whats my range", intent: point_lookup, signal: range, aggregate: latest}
+  - {q: "How's my battery?", intent: summary_health}
+  - {q: "What is the average speed today?", intent: point_lookup, signal: speed, period: today, aggregate: mean}
+  - {q: "Max battery temperature during charging yesterday", intent: point_lookup, signal: battery_temperature, period: yesterday, event_type: charging, aggregate: max}
+  - {q: "How long did my last charge take?", intent: point_lookup, event_type: charging, aggregate: duration}
+  - {q: "Why did the battery warning come on last Tuesday?", intent: unsupported, category: time_clarify}
+  - {q: "How many charging sessions on Monday?", intent: unsupported, category: time_clarify}
+  - {q: "Warnings from 2 days ago", intent: unsupported, category: time_clarify}
+  - {q: "Tell me how my efficiency changed since January", intent: unsupported, category: time_clarify}
+  - {q: "last 3 weeks battery warnings", intent: unsupported, category: time_clarify}
+  - {q: "Does the logged speed match the GPS speed?", intent: point_lookup, signal: speed}
+  - {q: "Is my tyre pressure okay?", intent: unsupported, category: tyre_not_recorded}
+  - {q: "Can you please brake now", intent: unsupported, category: control}
+  - {q: "Could you unlock the doors", intent: unsupported, category: control}
+  - {q: "I want you to turn off the AC", intent: unsupported, category: control}
+  - {q: "turn the heater up", intent: unsupported, category: control}
+  - {q: "please lock the car", intent: unsupported, category: control}
+  - {q: "start charging now", intent: unsupported, category: control}
+  - {q: "how often did I brake hard", intent: count_events}
+  - {q: "Any faults?", intent: summary_health}
+  - {q: "Is there anything wrong with my car?", intent: summary_health}
+  - {q: "Give me a summary of last week", intent: summary_health, period: last_7_days}
+  - {q: "Mera range kitna hai", intent: point_lookup, signal: range}
+  - {q: "Meri gaadi ka battery kitna bacha hai", intent: point_lookup, signal: state_of_charge}
+  - {q: "aaj battery temp kitna hai", intent: point_lookup, signal: battery_temperature, period: today}
+  - {q: "pichle hafte kitne warning aaye", intent: count_events, period: last_7_days}
+  - {q: "batery temp now", intent: point_lookup, signal: battery_temperature}
+  - {q: "overheeting warnings this month", intent: count_events, event_type: battery_overtemp_warning, period: this_month}
+  - {q: "averge speed last week", intent: point_lookup, signal: speed, period: last_7_days, aggregate: mean}
+  - {q: "What is coolant temperature?", intent: point_lookup}
+  - {q: "Is the pump working?", intent: point_lookup}
+  - {q: "how has my range changed over time", intent: trend, signal: range}
+  - {q: "compare city versus highway energy", intent: compare_groups, signal: energy_consumption, group_by: road_type}
+  - {q: "why is my range lower this month", intent: compare_periods, signal: range, period: this_month}
+  - {q: "show charging events from yesterday", intent: list_events, event_type: charging, period: yesterday}
+  - {q: "number of warning lamps today", intent: count_events, event_type: warning_lamp, period: today}
+  - {q: "latest battery temperature", intent: point_lookup, signal: battery_temperature}
+  - {q: "highest battery temp today", intent: point_lookup, signal: battery_temperature, period: today, aggregate: max}
+  - {q: "lowest battery temp today", intent: point_lookup, signal: battery_temperature, period: today, aggregate: min}

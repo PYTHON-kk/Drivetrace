@@ -1,13 +1,13 @@
 # DriveTrace
 
 Offline, evidence-grounded vehicle assistant for Tata Elxsi Teliport Case Study 5 (VehicleGPT).
-Design: `../solution_journey (1).md`. Build plan: `../build_plan.md`.
+Design: `solution_journey (1).md`. Build plan: `build_plan.md`.
 
 ## Status
 
 Phases P0-P7 built and measured on an x86 laptop used as a proxy; P8 (submission) in progress. Results: `docs/p2_results.md` ... `docs/p7_results.md`. Reproduce everything: `docs/REPRODUCE.md`. Demo: `docs/demo_script.md`.
 
-Open: re-measure on the 2-core ARM target; real (non-synthetic) fault data; an independently written question set.
+Open: re-measure on the 2-core ARM target; real (non-synthetic) fault data; a 100+ externally authored independent question set.
 
 ## Quick start (Windows, Python 3.14)
 

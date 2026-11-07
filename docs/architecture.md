@@ -102,7 +102,7 @@ What followed from the measurements:
 ## 4. Search and retrieval workflow
 
 1. **Route.** Keyword and pattern rules map the question to a plan: intent, signal, period, grouping, event type. Control requests ("Brake hard now"), prompt injection and off-topic questions are refused here, before any model runs.
-2. **Fallback.** If no rule matches, the SLM fills the same plan under a grammar from the plan vocabulary. It cannot express SQL or a command.
+2. **Fallback (optional).** If configured, the SLM can fill the same plan under a grammar from the plan vocabulary. It cannot express SQL or a command. The default web UI deployment keeps Tier 0 only.
 3. **Validate.** The plan is checked against allowed values and combinations; documented defaults are applied and reported.
 4. **Resolve time.** "Yesterday" and "this month" are resolved on the vehicle's own clock and time zone, DST-safe.
 5. **Execute.** One handler per intent runs fixed, parameterised SQL over the memory layers. Plan values never reach SQL text.
@@ -111,7 +111,8 @@ What followed from the measurements:
 
 | Measure | Result |
 |---|---|
-| Tier 0 routing on 142 questions | 71/71 dev, 71/71 test (same author wrote questions and rules) |
+| Tier 0 routing on 142 same-author questions | 71/71 dev, 71/71 test |
+| Tier 0 routing on provisional independent set | 33/40 fully correct (seed set; not yet 100+ external questions) |
 | SLM fallback, fully correct plans | 17-42% |
 | Common-question latency, in-process | p95 15-19 ms |
 | Common-question latency, over HTTP | p95 38-46 ms |
@@ -233,7 +234,7 @@ Common-question p95 rises from 38 ms to 42 ms with ingest running at the same ti
 | Criterion (brief, p.3) | Evidence | Key numbers |
 |---|---|---|
 | System architecture | §1, compose deployment, UI | 4 containers; 81 automated tests |
-| AI capability: understanding queries | Tier 0 rules + SLM fallback | 142/142 on own test set (not independent); SLM 17-42% |
+| AI capability: understanding queries | Tier 0 rules in UI; optional SLM fallback | 142/142 on same-author set; 33/40 on provisional independent set; SLM 17-42% |
 | AI capability: accuracy | Deterministic answers; ECD | 0 invented numbers with ECD vs 3/17 free text |
 | Data integration | Adapters with catalogue and unit checks | CAN (Zenodo), OBD (VED), simulated BMS/ADAS; SOME/IP, VHAL, QNX designed only |
 | Search and analytics: events, trends, anomalies | Memory layers + executor | p95 15-19 ms |

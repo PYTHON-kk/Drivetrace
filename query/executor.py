@@ -130,6 +130,14 @@ class Executor:
     def _trips(self, key: str) -> str:
         return f"(SELECT * FROM {self.store.trips(key)} WHERE km > {MIN_TRIP_KM})"
 
+    def _charging_session_window(self, ctx: Context, start_ts: datetime) -> tuple[datetime, datetime] | None:
+        rows = self.store.query(
+            f"""SELECT ts FROM {self.store.event_index(ctx.key)}
+                WHERE event_type = 'CHARGING_STOPPED' AND ts > ? ORDER BY ts LIMIT 1""", [start_ts])
+        if not rows:
+            return None
+        return start_ts, rows[0][0]
+
 
 # ---------------------------------------------------------------------- handlers
 def list_events(ex: Executor, ctx: Context, plan: Plan, w: Window) -> Result:
@@ -282,6 +290,55 @@ def point_lookup(ex: Executor, ctx: Context, plan: Plan, w: Window) -> Result:
             return r
         event = {"event_id": rows[0][0], "ts": rows[0][1], "trip_no": rows[0][2]}
         r.evidence.append(rows[0][0])
+
+    agg = plan.aggregate
+    if agg in ("duration", "count"):
+        if plan.event_type != "charging":
+            raise PlanError("duration and count are supported only for charging events")
+        if event is None:
+            r.data = {"found": False, "reason": "no_event"}
+            return r
+        session = ex._charging_session_window(ctx, event["ts"])
+        if not session:
+            r.data = {"found": False, "reason": "missing_charging_stop"}
+            return r
+        start, end = session
+        seconds = (end - start).total_seconds()
+        r.data = {"found": True, "kind": "aggregate", "aggregate": agg, "label": "charging session",
+                  "value": seconds / 60.0 if agg == "duration" else 1, "unit": "minutes" if agg == "duration" else "",
+                  "start_local_time": start.astimezone(ZoneInfo(ctx.tz)), "end_local_time": end.astimezone(ZoneInfo(ctx.tz)),
+                  "event": event}
+        return r
+
+    if agg in ("mean", "max", "min"):
+        if plan.signal in ("energy_consumption", "fuel_consumption"):
+            raise PlanError(f"aggregate {agg} is not available for {plan.signal.replace('_', ' ')}")
+        path = ex._signal_path(ctx, plan.signal)
+        win_start, win_end = w.start, w.end
+        if event and plan.event_type == "charging":
+            session = ex._charging_session_window(ctx, event["ts"])
+            if not session:
+                r.data = {"found": False, "reason": "missing_charging_stop"}
+                return r
+            win_start, win_end = session
+            r.evidence.append("charging session window")
+        op = {"mean": "avg(value)", "max": "max(value)", "min": "min(value)"}[agg]
+        rows = ex.store.query(
+            f"""SELECT {op}, max(ts) FROM {ex.store.signals(ctx.key)}
+                WHERE date BETWEEN CAST(? AS DATE) AND CAST(? AS DATE)
+                  AND signal_path = ? AND ts >= ? AND ts < ?""",
+            [win_start, win_end, path, win_start, win_end])
+        value, ts = rows[0] if rows else (None, None)
+        if ts is None:
+            r.data = {"found": False, "reason": "no_sample"}
+            return r
+        if plan.signal == "range":
+            value = value / 1000.0
+        r.data = {"found": True, "kind": "aggregate", "aggregate": agg, "label": plan.signal.replace("_", " "),
+                  "unit": UNITS[plan.signal], "value": value, "sample_local_time": ts.astimezone(ZoneInfo(ctx.tz)),
+                  "event": event, "window": (win_start.astimezone(ZoneInfo(ctx.tz)), win_end.astimezone(ZoneInfo(ctx.tz)))}
+        return r
+
     if plan.signal in ("energy_consumption", "fuel_consumption"):
         expr, unit, label = ex._consumption(ctx, plan.signal, r.notes)
         if event and event["trip_no"] is not None:
@@ -311,6 +368,30 @@ def point_lookup(ex: Executor, ctx: Context, plan: Plan, w: Window) -> Result:
     r.data = {"found": True, "kind": "signal", "label": plan.signal.replace("_", " "), "unit": UNITS[plan.signal],
               "value": value, "sample_local_time": ts.astimezone(ZoneInfo(ctx.tz)), "event": event,
               "is_latest": event is None}
+    return r
+
+
+def summary_health(ex: Executor, ctx: Context, plan: Plan, w: Window) -> Result:
+    r = Result(plan.intent, w)
+    q = f"""SELECT event_type, count(*) FROM {ex.store.event_index(ctx.key)}
+            WHERE ts >= ? AND ts < ? AND event_type IN ('BATT_OVERTEMP_WARNING_SET', 'WARNING_LAMP_ON', 'ADAS_DISENGAGED')
+            GROUP BY event_type"""
+    rows = dict(ex.store.query(q, [w.start, w.end]))
+    latest = ex.store.query(
+        f"""SELECT event_type, ts, event_id FROM {ex.store.event_index(ctx.key)}
+            WHERE ts >= ? AND ts < ? AND event_type IN ('BATT_OVERTEMP_WARNING_SET', 'WARNING_LAMP_ON')
+            ORDER BY ts DESC LIMIT 1""", [w.start, w.end])
+    latest_warning = None
+    if latest:
+        etype, ts, eid = latest[0]
+        latest_warning = {"event_type": etype, "ts": ts.astimezone(ZoneInfo(ctx.tz)), "event_id": eid}
+        r.evidence.append(eid)
+    r.data = {
+        "warnings": rows.get("BATT_OVERTEMP_WARNING_SET", 0),
+        "lamps": rows.get("WARNING_LAMP_ON", 0),
+        "adas": rows.get("ADAS_DISENGAGED", 0),
+        "latest_warning": latest_warning,
+    }
     return r
 
 
@@ -353,5 +434,5 @@ UNITS = {"battery_temperature": "°C", "speed": "km/h", "state_of_charge": "%", 
 HANDLERS = {
     "list_events": list_events, "count_events": count_events, "max_drop": max_drop, "trend": trend,
     "compare_periods": compare_periods, "compare_groups": compare_groups, "point_lookup": point_lookup,
-    "diagnose_event": diagnose_event,
+    "diagnose_event": diagnose_event, "summary_health": summary_health,
 }
